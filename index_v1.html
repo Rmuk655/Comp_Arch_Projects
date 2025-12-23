@@ -1,0 +1,987 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced RISC-V Simulator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Consolas', 'Monaco', 'Lucida Console', monospace;
+      background: #1a1a1a;
+      color: #e0e0e0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #controls {
+      background: linear-gradient(135deg, #2d2d2d, #404040);
+      padding: 12px;
+      border-bottom: 2px solid #4a9eff;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #4a9eff, #357abd);
+      color: white;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.2s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #3a8eef, #2a6aa0);
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background: #555;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    select {
+      padding: 6px 10px;
+      border: 1px solid #555;
+      border-radius: 4px;
+      background: #333;
+      color: #e0e0e0;
+      font-family: inherit;
+      font-size: 11px;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+      margin: 0 8px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #555;
+      transition: .4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #4a9eff;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    #main {
+      flex: 1;
+      display: flex;
+      height: calc(100vh - 70px);
+      min-height: 0;
+    }
+
+    .splitter-horizontal, .splitter-vertical {
+      background: #333;
+      cursor: col-resize;
+      position: relative;
+      user-select: none;
+    }
+
+    .splitter-horizontal {
+      width: 4px;
+      cursor: col-resize;
+    }
+
+    .splitter-vertical {
+      height: 4px;
+      cursor: row-resize;
+    }
+
+    .splitter-horizontal:hover, .splitter-vertical:hover {
+      background: #4a9eff;
+    }
+
+    #leftPane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 300px;
+    }
+
+    #editorSection {
+      flex: 1;
+      display: flex;
+      min-height: 200px;
+    }
+
+    #assemblyEditor, #machineCodeView {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 150px;
+    }
+
+    .editor-header {
+      background: #333;
+      padding: 8px 12px;
+      font-weight: bold;
+      font-size: 12px;
+      border-bottom: 1px solid #444;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .editor-container {
+      flex: 1;
+      position: relative;
+      background: #1e1e1e;
+    }
+
+    #codeTextarea, #machineCodeTextarea {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      color: #d4d4d4;
+      border: none;
+      padding: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 18px;
+      resize: none;
+      outline: none;
+      tab-size: 4;
+    }
+
+    #machineCodeTextarea {
+      background: #0d1117;
+      color: #7dd3fc;
+      font-family: 'Courier New', monospace;
+    }
+
+    .line-numbers {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 40px;
+      background: #252525;
+      border-right: 1px solid #444;
+      padding: 10px 5px;
+      font-size: 13px;
+      line-height: 18px;
+      color: #666;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    .line-numbers .line-number {
+      text-align: right;
+      cursor: pointer;
+      padding-right: 5px;
+      position: relative;
+    }
+
+    .line-number.breakpoint {
+      background: #dc3545;
+      color: white;
+      border-radius: 2px;
+    }
+
+    .line-number.breakpoint:before {
+      content: "●";
+      position: absolute;
+      right: -8px;
+      color: #dc3545;
+    }
+
+    #codeTextarea {
+      padding-left: 50px;
+    }
+
+    #highlightOverlay {
+      position: absolute;
+      top: 0;
+      left: 50px;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      padding: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 18px;
+      overflow: hidden;
+    }
+
+    .highlightLine {
+      position: absolute;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 0, 0.2);
+      border-left: 3px solid #ffff00;
+    }
+
+    .breakpointLine {
+      position: absolute;
+      left: 0;
+      right: 0;
+      background: rgba(220, 53, 69, 0.1);
+      border-left: 3px solid #dc3545;
+    }
+
+    #consoleOutput {
+      height: 180px;
+      background: #0d1117;
+      color: #58a6ff;
+      padding: 10px;
+      overflow-y: scroll;
+      border-top: 1px solid #444;
+      font-size: 12px;
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+    }
+
+    #rightPane {
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      background: #252525;
+      min-width: 200px;
+    }
+
+    .panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid #444;
+      min-height: 150px;
+    }
+
+    .panel:last-child {
+      border-bottom: none;
+    }
+
+    .panel-header {
+      background: linear-gradient(135deg, #333, #404040);
+      padding: 8px 12px;
+      font-weight: bold;
+      font-size: 12px;
+      border-bottom: 1px solid #444;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: grab;
+    }
+
+    .panel-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px;
+      background: #1e1e1e;
+    }
+
+    #registerTable {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    #registerTable th,
+    #registerTable td {
+      padding: 4px 8px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+    }
+
+    #registerTable th {
+      background: #2d2d2d;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+    }
+
+    .register-zero {
+      color: #666;
+    }
+
+    .register-nonzero {
+      color: #4fc3f7;
+    }
+
+    .highlight-change {
+      animation: flash 0.5s ease-in-out;
+    }
+
+    @keyframes flash {
+      0% { background-color: rgba(255, 165, 0, 0.7); }
+      100% { background-color: transparent; }
+    }
+
+    #stackView ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #stackView li {
+      padding: 4px 8px;
+      border-bottom: 1px solid #333;
+      font-size: 11px;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    #stackView li:before {
+      content: "└";
+      position: absolute;
+      left: 8px;
+      color: #666;
+    }
+
+    .memory-grid {
+      display: grid;
+      grid-template-columns: auto repeat(16, 1fr);
+      gap: 1px;
+      font-size: 10px;
+      background: #333;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .memory-address {
+      background: #2d2d2d;
+      padding: 4px 6px;
+      text-align: right;
+      color: #888;
+      font-weight: bold;
+      font-family: 'Courier New', monospace;
+    }
+
+    .memory-byte {
+      background: #1a1a1a;
+      padding: 4px 2px;
+      text-align: center;
+      min-width: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Courier New', monospace;
+    }
+
+    .memory-byte:hover {
+      background: #3a3a3a;
+      transform: scale(1.1);
+    }
+
+    .memory-byte.changed {
+      background: rgba(255, 165, 0, 0.3);
+      animation: pulse 1s ease-in-out;
+    }
+
+    .memory-byte.zero {
+      color: #666;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .cache-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+    }
+
+    .cache-table th,
+    .cache-table td {
+      padding: 4px 6px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+      font-family: 'Courier New', monospace;
+    }
+
+    .cache-table th {
+      background: #2d2d2d;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+    }
+
+    .cache-hit {
+      color: #4caf50;
+    }
+
+    .cache-miss {
+      color: #f44336;
+    }
+
+    .cache-dirty {
+      background: rgba(255, 165, 0, 0.2);
+    }
+
+    .panel-controls {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .panel-controls button {
+      padding: 2px 8px;
+      font-size: 10px;
+    }
+
+    .memory-ascii {
+      grid-column: span 16;
+      background: #0d1117;
+      padding: 4px 6px;
+      font-size: 9px;
+      color: #aaa;
+      font-family: 'Courier New', monospace;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .stat-card {
+      background: #2d2d2d;
+      padding: 8px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: bold;
+      color: #4a9eff;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: #aaa;
+      margin-top: 2px;
+    }
+
+    .resizer {
+      background: transparent;
+      position: absolute;
+    }
+
+    .resizer.horizontal {
+      height: 4px;
+      cursor: row-resize;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+    }
+
+    .resizer.vertical {
+      width: 4px;
+      cursor: col-resize;
+      top: 0;
+      bottom: 0;
+      right: -2px;
+    }
+
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #666;
+      font-style: italic;
+    }
+
+    .tooltip {
+      position: relative;
+    }
+
+    .tooltip:hover:after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      white-space: nowrap;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <div id="controls">
+    <div class="button-group">
+      <button id="loadManualBtn" class="tooltip" data-tooltip="Load assembly file">📁 Load</button>
+      <button id="runBtn" disabled class="tooltip" data-tooltip="Run simulation (F5)">▶ Run</button>
+      <button id="stepBtn" disabled class="tooltip" data-tooltip="Step one instruction (F10)">➡️ Step</button>
+      <button id="resetBtn" disabled class="tooltip" data-tooltip="Reset simulation">🔄 Reset</button>
+      <button onclick="clearConsole()" class="tooltip" data-tooltip="Clear console output">🧹 Clear</button>
+    </div>
+    
+    <div class="button-group">
+      <label for="instructionSet">ISA:</label>
+      <select id="instructionSet">
+        <option value="rv32i">RV32I Base</option>
+        <option value="rv32im">RV32IM</option>
+        <option value="rv32imc">RV32IMC</option>
+        <option value="rv64i">RV64I</option>
+      </select>
+    </div>
+
+    <div class="button-group">
+      <span>Hex</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="registerFormat">
+        <span class="slider"></span>
+      </label>
+      <span>Dec</span>
+    </div>
+
+    <div class="button-group">
+      <button id="toggleBreakpoints" class="tooltip" data-tooltip="Toggle all breakpoints">🔴 BP</button>
+      <button id="loadSample" class="tooltip" data-tooltip="Load sample code">📋 Sample</button>
+    </div>
+  </div>
+
+  <div id="main">
+    <div id="leftPane">
+      <div id="editorSection">
+        <div id="assemblyEditor">
+          <div class="editor-header">
+            <span>📝 Assembly Code</span>
+            <div class="panel-controls">
+              <button onclick="formatCode()" class="tooltip" data-tooltip="Auto-format code">✨</button>
+              <button onclick="saveCode()" class="tooltip" data-tooltip="Save code">💾</button>
+            </div>
+          </div>
+          <div class="editor-container">
+            <div class="line-numbers" id="lineNumbers"></div>
+            <textarea id="codeTextarea" placeholder="// Load sample code or import your RISC-V assembly file
+// Click line numbers to set breakpoints
+// Use Ctrl+S to save, F5 to run, F10 to step"></textarea>
+            <div id="highlightOverlay"></div>
+          </div>
+        </div>
+        
+        <div class="splitter-horizontal" id="editorSplitter"></div>
+        
+        <div id="machineCodeView">
+          <div class="editor-header">
+            <span>⚙️ Machine Code</span>
+            <div class="panel-controls">
+              <button onclick="copyMachineCode()" class="tooltip" data-tooltip="Copy to clipboard">📋</button>
+              <button onclick="exportHex()" class="tooltip" data-tooltip="Export as hex file">📤</button>
+            </div>
+          </div>
+          <div class="editor-container">
+            <textarea id="machineCodeTextarea" readonly placeholder="Machine code will appear here after loading assembly..."></textarea>
+          </div>
+        </div>
+      </div>
+      
+      <div class="splitter-vertical" id="consoleSplitter"></div>
+      
+      <div id="consoleOutput"></div>
+    </div>
+
+    <div class="splitter-horizontal" id="mainSplitter"></div>
+
+    <div id="rightPane">
+      <div class="panel" id="registerView">
+        <div class="panel-header">
+          <span>📊 Registers</span>
+          <div class="panel-controls">
+            <button onclick="exportRegisters()" class="tooltip" data-tooltip="Export register state">📤</button>
+          </div>
+        </div>
+        <div class="panel-content">
+          <table id="registerTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Alias</th>
+                <th>Value</th>
+                <th>Name</th>
+                <th>Alias</th>
+                <th>Value</th>
+              </tr>        
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="resizer horizontal"></div>
+      </div>
+
+      <div class="panel" id="memoryView">
+        <div class="panel-header">
+          <span>🧠 Memory</span>
+          <div class="panel-controls">
+            <button onclick="refreshMemory()" class="tooltip" data-tooltip="Refresh memory view">🔄</button>
+            <button onclick="jumpToAddress()" class="tooltip" data-tooltip="Jump to address">🎯</button>
+            <input type="text" id="memorySearch" placeholder="Search..." style="width:80px; font-size:10px;">
+          </div>
+        </div>
+        <div class="panel-content">
+          <div id="memoryGrid" class="memory-grid"></div>
+        </div>
+        <div class="resizer horizontal"></div>
+      </div>
+
+      <div class="panel" id="cacheView">
+        <div class="panel-header">
+          <span>⚡ Cache</span>
+          <div class="panel-controls">
+            <button onclick="clearCacheStats()" class="tooltip" data-tooltip="Clear statistics">📊</button>
+          </div>
+        </div>
+        <div class="panel-content">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="cacheHits">0</div>
+              <div class="stat-label">Hits</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="cacheMisses">0</div>
+              <div class="stat-label">Misses</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="hitRate">0%</div>
+              <div class="stat-label">Hit Rate</div>
+            </div>
+          </div>
+          <table class="cache-table" id="cacheTable">
+            <thead>
+              <tr>
+                <th>Set</th>
+                <th>Tag</th>
+                <th>Valid</th>
+                <th>Dirty</th>
+                <th>Data</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="resizer horizontal"></div>
+      </div>
+
+      <div class="panel" id="stackView">
+        <div class="panel-header">
+          <span>📚 Call Stack</span>
+          <div class="panel-controls">
+            <button onclick="exportStack()" class="tooltip" data-tooltip="Export stack trace">📤</button>
+          </div>
+        </div>
+        <div class="panel-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // State management
+    let Module, sim;
+    let breakpoints = new Set();
+    let memoryData = new Map();
+    let cacheStats = { hits: 0, misses: 0 };
+    let currentMemoryBase = 0x10010000;
+    let isHexFormat = true;
+    let currentLine = -1;
+    let isRunning = false;
+
+    // Sample RISC-V code
+    const sampleCode = `# Fibonacci sequence calculator
+# Calculates first 10 Fibonacci numbers
+
+.data
+    msg: .string "Fibonacci: "
+    newline: .string "\\n"
+
+.text
+.global _start
+
+_start:
+    li t0, 10          # Counter for loop
+    li t1, 0           # First Fibonacci number
+    li t2, 1           # Second Fibonacci number
+    
+loop:
+    beq t0, zero, end  # If counter is 0, exit
+    
+    # Print current Fibonacci number
+    mv a0, t1          # Move current fib to a0
+    li a7, 1           # Print integer syscall
+    ecall
+    
+    # Calculate next Fibonacci number
+    add t3, t1, t2     # t3 = t1 + t2
+    mv t1, t2          # t1 = t2
+    mv t2, t3          # t2 = t3
+    
+    addi t0, t0, -1    # Decrement counter
+    j loop             # Jump back to loop
+    
+end:
+    li a7, 10          # Exit syscall
+    ecall
+
+# Recursive factorial function
+factorial:
+    addi sp, sp, -8    # Allocate stack space
+    sw ra, 4(sp)       # Save return address
+    sw a0, 0(sp)       # Save argument
+    
+    li t0, 1
+    bgt a0, t0, recurse
+    
+    li a0, 1           # Base case: return 1
+    j factorial_end
+    
+recurse:
+    addi a0, a0, -1    # n - 1
+    jal factorial      # Recursive call
+    
+    lw t1, 0(sp)       # Load original n
+    mul a0, a0, t1     # n * factorial(n-1)
+    
+factorial_end:
+    lw ra, 4(sp)       # Restore return address
+    addi sp, sp, 8     # Deallocate stack space
+    jr ra              # Return`;
+
+    // Initialize simulator
+    async function initSimulator() {
+      try {
+        const createModule = (await import("./riscv_web.js")).default;
+        Module = await createModule();
+
+        if (Module.calledRun) {
+          setupSimulator();
+        } else {
+          Module.onRuntimeInitialized = setupSimulator;
+        }
+      } catch (error) {
+        logToConsole("❌ Failed to load RISC-V module: " + error.message);
+      }
+    }
+
+    function setupSimulator() {
+      console.log("✅ Runtime initialized");
+      sim = new Module.Simulator();
+      
+      if (!Module.FS) {
+        console.error("❌ Module.FS is undefined");
+        return;
+      }
+
+      // Load sample code on startup
+      loadSampleCode();
+      updateAllViews();
+    }
+
+    // UI Elements
+    const consoleOutput = document.getElementById("consoleOutput");
+    const codeTextarea = document.getElementById("codeTextarea");
+    const machineCodeTextarea = document.getElementById("machineCodeTextarea");
+    const lineNumbers = document.getElementById("lineNumbers");
+    const registerFormatToggle = document.getElementById("registerFormat");
+
+    function logToConsole(msg) {
+      const timestamp = new Date().toLocaleTimeString();
+      consoleOutput.textContent += `[${timestamp}] ${msg}\n`;
+      consoleOutput.scrollTop = consoleOutput.scrollHeight;
+    }
+
+    function clearConsole() {
+      consoleOutput.textContent = "";
+    }
+
+    function checkReady() {
+      if (!Module || !sim || !Module.FS) {
+        logToConsole("❌ Simulator not ready. Please wait...");
+        return false;
+      }
+      return true;
+    }
+
+    // Breakpoint management
+    function toggleBreakpoint(line) {
+      if (breakpoints.has(line)) {
+        breakpoints.delete(line);
+        logToConsole(`🔴 Removed breakpoint at line ${line}`);
+      } else {
+        breakpoints.add(line);
+        logToConsole(`🔴 Added breakpoint at line ${line}`);
+      }
+      updateLineNumbers();
+      updateHighlightOverlay();
+    }
+
+    function updateLineNumbers() {
+      const lines = codeTextarea.value.split('\n');
+      lineNumbers.innerHTML = '';
+      
+      lines.forEach((_, index) => {
+        const lineNum = index + 1;
+        const lineDiv = document.createElement('div');
+        lineDiv.className = 'line-number';
+        lineDiv.textContent = lineNum;
+        
+        if (breakpoints.has(lineNum)) {
+          lineDiv.classList.add('breakpoint');
+        }
+        
+        lineDiv.onclick = () => toggleBreakpoint(lineNum);
+        lineNumbers.appendChild(lineDiv);
+      });
+    }
+
+    function updateHighlightOverlay() {
+      const overlay = document.getElementById("highlightOverlay");
+      overlay.innerHTML = '';
+      
+      // Add current line highlight
+      if (currentLine > 0) {
+        const highlighter = document.createElement("div");
+        highlighter.className = "highlightLine";
+        highlighter.style.top = `${(currentLine - 1) * 18}px`;
+        highlighter.style.height = "18px";
+        overlay.appendChild(highlighter);
+      }
+      
+      // Add breakpoint highlights
+      breakpoints.forEach(line => {
+        const bpHighlight = document.createElement("div");
+        bpHighlight.className = "breakpointLine";
+        bpHighlight.style.top = `${(line - 1) * 18}px`;
+        bpHighlight.style.height = "18px";
+        overlay.appendChild(bpHighlight);
+      });
+    }
+
+    // Code editing and compilation
+    function updateMachineCode() {
+      if (!checkReady()) return;
+      
+      try {
+        const assemblyCode = codeTextarea.value;
+        if (!assemblyCode.trim()) {
+          machineCodeTextarea.value = "";
+          return;
+        }
+
+        // Simulate machine code generation
+        const lines = assemblyCode.split('\n');
+        let machineCode = '';
+        let address = 0x00400000;
+        
+        lines.forEach((line, index) => {
+          const trimmed = line.trim();
+          if (trimmed && !trimmed.startsWith('#') && !trimmed.startsWith('.') && !trimmed.endsWith(':')) {
+            const instruction = generateMachineCode(trimmed);
+            machineCode += `0x${address.toString(16).padStart(8, '0')}: ${instruction} ; ${trimmed}\n`;
+            address += 4;
+          }
+        });
+        
+        machineCodeTextarea.value = machineCode;
+      } catch (error) {
+        logToConsole("❌ Error generating machine code: " + error.message);
+      }
+    }
+
+    function generateMachineCode(instruction) {
+      // Simplified machine code generation for demo
+      const opcodes = {
+        'li': '0x00000013', 'mv': '0x00000013', 'add': '0x00000033',
+        'addi': '0x00000013', 'beq': '0x00000063', 'bgt': '0x00005063',
+        'jal': '0x0000006f', 'jr': '0x00000067', 'lw': '0x00002003',
+        'sw': '0x00002023', 'mul': '0x02000033', 'ecall': '0x00000073'
+      };
+      
+      const parts = instruction.split(/\s+/);
+      const op = parts[0];
+      return opcodes[op] || '0x00000000';
+    }
+
+    // Register display formatting
+    function formatRegisterValue(value, isZero = false) {
+      if (isZero) return isHexFormat ? "00000000" : "0";
+      
+      const numValue = parseInt(value, 16);
+      if (isHexFormat) {
+        return value;
+      } else {
+        return numValue.toString();
+      }
+    }
+
+    // Previous register values for change detection
+    const previousRegisterValues = {};
+
+    function updateRegisterTable() {
+      if (!checkReady()) return;
+
+      try {
+        const registers = sim.getRegisters().split(/[\n\t]+/).filter(line => line.trim());
+        const registerTableBody = document.querySelector("#registerTable tbody");
+        registerTableBody.innerHTML = "";
+
+        const registerAliases = {
+          x0: "zero", x1: "ra", x2: "sp", x3: "gp", x4: "tp", x5: "

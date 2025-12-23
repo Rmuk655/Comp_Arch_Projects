@@ -1,0 +1,13 @@
+Pipeline Configuration:
+  Type: 5-Stage
+  Forwarding: Enabled
+  Window Size: 6
+
+
+Detected Hazards:
+
+Statistics:
+  Total Stalls: 0
+  Total Instructions: 4
+  Total Cycles: 4
+  CPI: 1

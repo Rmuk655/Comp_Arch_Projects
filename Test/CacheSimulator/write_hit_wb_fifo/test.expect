@@ -1,0 +1,43 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Cache simulation enabled with configuration from Test/CacheSimulator\write_hit_wb_fifo\config
+RISC Sim> Loading program...
+Loaded program from Test/CacheSimulator\write_hit_wb_fifo\test.asm
+RISC Sim> Cache Simulation Status: Enabled
+Cache Size: 1024
+Block Size: 16
+Associativity: 2
+Replacement Policy: FIFO
+Write Back Policy: WB
+RISC Sim> Executed: lui     t0, 0x1 (line: 4) ; PC =  hex: 0x000000
+RISC Sim> Executed: lw      t1, 0(t0) (line: 5) ; PC =  hex: 0x000004
+Executed: addi    t2, zero, 20 (line: 6) ; PC =  hex: 0x000008
+Executed: sw      t2, 0(t0) (line: 7) ; PC =  hex: 0x00000c
+Executed: lui     t3, 0x9 (line: 10) ; PC =  hex: 0x000010
+Executed: lw      t4, 0(t3) (line: 11) ; PC =  hex: 0x000014
+Executed: lui     t5, 0xA (line: 14) ; PC =  hex: 0x000018
+Executed: lw      t6, 0(t5) (line: 15) ; PC =  hex: 0x00001c
+Program completed (possibly reached end of program).
+Program: test
+D-cache statistics:   Accesses: 4   Hits: 1   Misses: 3   Hit Rate: 25%
+RISC Sim> Set[0]:
+  Index: 0x00 | Tag: 0x00000050 | Clean | Data: [00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+  Index: 0x00 | Tag: 0x00000048 | Clean | Data: [00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+RISC Sim> Cache state dumped to cache_dump
+RISC Sim> Cache simulation disabled.
+RISC Sim> Cache simulation is not enabled to get simulation statistics.
+RISC Sim> Exiting simulator...
+[0m
+=== Log File ===
+R: Address: 0x1000, Set: 0x0, Tag: 0x8, Clean, Miss, Replacing block in set using INVALID_BLOCK
+R: Address: 0x1000, Set: 0x0, Tag: 0x8, Clean, Miss, Read Allocated Block (WB or WT)
+W: Address: 0x1000, Set: 0x0, Tag: 0x8, Dirty, Hit, WB
+R: Address: 0x9000, Set: 0x0, Tag: 0x48, Clean, Miss, Replacing block in set using INVALID_BLOCK
+R: Address: 0x9000, Set: 0x0, Tag: 0x48, Clean, Miss, Read Allocated Block (WB or WT)
+W: Address: 0xa000, Set: 0x0, Tag: 0x8, Dirty, Evicting dirty block (WB)
+R: Address: 0xa000, Set: 0x0, Tag: 0x50, Clean, Miss, Replacing block in set using FIFO
+R: Address: 0xa000, Set: 0x0, Tag: 0x50, Clean, Miss, Read Allocated Block (WB or WT)
+
+=== Cache Dump ===
+Set[0]:
+  Index: 0x00 | Tag: 0x00000050 | Clean | Data: [00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+  Index: 0x00 | Tag: 0x00000048 | Clean | Data: [00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]

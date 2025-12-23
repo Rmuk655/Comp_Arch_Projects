@@ -1,0 +1,204 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test/PipelineHazards\LoopMultiple\test.asm
+RISC Sim> Pipeline hazard detection enabled
+Pipeline simulation enabled with hazard detection.
+RISC Sim> Pipeline Status:
+  Enabled: Yes
+  Type: 5-Stage
+  Forwarding: Enabled
+  Window Size: 6
+  Current Cycle: 0
+  Cache Simulation: Disabled
+RISC Sim> 
+=== PERFORMANCE ANALYSIS ===
+Program instructions: 7
+Total hazards detected: 9
+Total stall cycles: 3
+Estimated CPI (without hazards): 1.0
+Estimated CPI (with hazards): 1.42857
+===========================
+
+Static analysis of pipeline completed.
+RISC Sim> 
+=== Critical Hazards (Stalls > 0) ===
+   Instruction: add x2, x2, x3 at PC=0xc
+   Depends on: lw x3, 0(x4) (PC=0x8)
+   Distance: 1 instruction
+   Register: x3   Stall cycles: 1
+   Description: RAW Hazard: Read-after-Write on x3
+   Solution: 1 cycle stall or forwarding
+
+   Instruction: bne x1, x0, loop at PC=0x18
+   Stall cycles: 2
+   Description: Control hazard from Branch instruction: bne
+   Solution: Use branch prediction or delayed branching (2 cycles)
+
+
+=== Resolved / Non-Critical Hazards ===
+   Instruction: addi x1, x1, -1 at PC=0x14
+   Depends on: addi x1, x0, 10 (PC=0x0)
+   Distance: 5 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+   Instruction: addi x1, x1, -1 at PC=0x14
+   Depends on: addi x1, x0, 10 (PC=0x0)
+   Distance: 5 instructions
+   Register: x1   Stall cycles: 0
+   Note: WAW hazard resolved by instruction separation or writeback timing
+   Description: WAW Hazard: Write-after-Write on x1
+   Solution: Reorder writes or stall to avoid overwriting
+
+   Instruction: bne x1, x0, loop at PC=0x18
+   Depends on: addi x1, x0, 10 (PC=0x0)
+   Distance: 6 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+   Instruction: add x2, x2, x3 at PC=0xc
+   Depends on: addi x2, x0, 0 (PC=0x4)
+   Distance: 2 instructions
+   Register: x2   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x2
+   Solution: No stall needed (forwarding available)
+
+   Instruction: add x2, x2, x3 at PC=0xc
+   Depends on: addi x2, x0, 0 (PC=0x4)
+   Distance: 2 instructions
+   Register: x2   Stall cycles: 0
+   Note: WAW hazard resolved by instruction separation or writeback timing
+   Description: WAW Hazard: Write-after-Write on x2
+   Solution: Reorder writes or stall to avoid overwriting
+
+   Instruction: addi x4, x4, 4 at PC=0x10
+   Depends on: lw x3, 0(x4) (PC=0x8)
+   Distance: 2 instructions
+   Register: x4   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: WAR Hazard: Write-after-Read on x4
+   Solution: No stall needed (no conflict or handled by reordering)
+
+   Instruction: bne x1, x0, loop at PC=0x18
+   Depends on: addi x1, x1, -1 (PC=0x14)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+RISC Sim> Pipeline Stall Statistics:
+  Total Stalls: 3
+  RAW Hazards: 1
+  Control Hazards: 2
+  Total Instructions: 7
+  Total Cycles: 10
+  CPI: 1.42857
+RISC Sim> Pipeline state dumped to Test/PipelineHazards\LoopMultiple./pipeline_dump
+Pipeline analysis dumped to Test/PipelineHazards\LoopMultiple./pipeline_dump
+RISC Sim> Data forwarding disabled
+Data forwarding disabled.
+RISC Sim> Pipeline Status:
+  Enabled: Yes
+  Type: 5-Stage
+  Forwarding: Disabled
+  Window Size: 6
+  Current Cycle: 0
+  Cache Simulation: Disabled
+RISC Sim> 
+=== PERFORMANCE ANALYSIS ===
+Program instructions: 7
+Total hazards detected: 9
+Total stall cycles: 7
+Estimated CPI (without hazards): 1.0
+Estimated CPI (with hazards): 2
+===========================
+
+Static analysis of pipeline completed.
+RISC Sim> 
+=== Critical Hazards (Stalls > 0) ===
+   Instruction: add x2, x2, x3 at PC=0xc
+   Depends on: addi x2, x0, 0 (PC=0x4)
+   Distance: 2 instructions
+   Register: x2   Stall cycles: 1
+   Description: RAW Hazard: Read-after-Write on x2
+   Solution: 1 cycle stall required
+
+   Instruction: add x2, x2, x3 at PC=0xc
+   Depends on: lw x3, 0(x4) (PC=0x8)
+   Distance: 1 instruction
+   Register: x3   Stall cycles: 2
+   Description: RAW Hazard: Read-after-Write on x3
+   Solution: 2 cycle stall required
+
+   Instruction: bne x1, x0, loop at PC=0x18
+   Depends on: addi x1, x1, -1 (PC=0x14)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 2
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: 2 cycle stall required
+
+   Instruction: bne x1, x0, loop at PC=0x18
+   Stall cycles: 2
+   Description: Control hazard from Branch instruction: bne
+   Solution: Use branch prediction or delayed branching (2 cycles)
+
+
+=== Resolved / Non-Critical Hazards ===
+   Instruction: addi x1, x1, -1 at PC=0x14
+   Depends on: addi x1, x0, 10 (PC=0x0)
+   Distance: 5 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed
+
+   Instruction: addi x1, x1, -1 at PC=0x14
+   Depends on: addi x1, x0, 10 (PC=0x0)
+   Distance: 5 instructions
+   Register: x1   Stall cycles: 0
+   Note: WAW hazard resolved by instruction separation or writeback timing
+   Description: WAW Hazard: Write-after-Write on x1
+   Solution: Reorder writes or stall to avoid overwriting
+
+   Instruction: bne x1, x0, loop at PC=0x18
+   Depends on: addi x1, x0, 10 (PC=0x0)
+   Distance: 6 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed
+
+   Instruction: add x2, x2, x3 at PC=0xc
+   Depends on: addi x2, x0, 0 (PC=0x4)
+   Distance: 2 instructions
+   Register: x2   Stall cycles: 0
+   Note: WAW hazard resolved by instruction separation or writeback timing
+   Description: WAW Hazard: Write-after-Write on x2
+   Solution: Reorder writes or stall to avoid overwriting
+
+   Instruction: addi x4, x4, 4 at PC=0x10
+   Depends on: lw x3, 0(x4) (PC=0x8)
+   Distance: 2 instructions
+   Register: x4   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: WAR Hazard: Write-after-Read on x4
+   Solution: No stall needed (no conflict or handled by reordering)
+
+RISC Sim> Pipeline Stall Statistics:
+  Total Stalls: 7
+  RAW Hazards: 5
+  Control Hazards: 2
+  Total Instructions: 7
+  Total Cycles: 14
+  CPI: 2
+RISC Sim> Pipeline cleared
+Pipeline state cleared.
+RISC Sim> No hazards detected in current instruction window
+RISC Sim> Exiting simulator...
+[0m

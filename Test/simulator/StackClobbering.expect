@@ -1,0 +1,29 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test\StackClobbering.s
+RISC Sim> Breakpoint set at line 1
+RISC Sim> Executed: lui x2, 0x10000 (line: 1) ; PC =  hex: 0x000000
+RISC Sim> x0: 0	x1: 0	x2: 10000000	x3: 0	x4: 0	x5: 0	x6: 0	x7: 0	x8: 0	x9: 0	x10: 0	x11: 0	x12: 0	x13: 0	x14: 0	x15: 0
+x16: 0	x17: 0	x18: 0	x19: 0	x20: 0	x21: 0	x22: 0	x23: 0	x24: 0	x25: 0	x26: 0	x27: 0	x28: 0	x29: 0	x30: 0	x31: 0
+RISC Sim> Printing currently loaded instructions .... 
+lui x2, 0x10000
+jal x1, 12
+addi x10, x0, 0
+ecall
+addi x2, x2, -16
+sw   x1, 0(x2)
+jalr x0, 0(x1)
+RISC Sim> Call stack (oldest to newest):
+#0   * main * at line : 1 Next Instruction 0x00000004 
+RISC Sim> Executed: jal x1, 12 (line: 2) ; PC =  hex: 0x000004
+Executed: addi x2, x2, -16 (line: 9) ; PC =  hex: 0x000010
+Executed: sw   x1, 0(x2) (line: 10) ; PC =  hex: 0x000014
+Warning! Shadow call stack mismatch! Expected: 0x10 but asking to pop 0x0
+Call stack (oldest to newest):
+#0   * main * at line : 2 Next Instruction 0x00000010 
+Executed: jalr x0, 0(x1) (line: 12) ; PC =  hex: 0x000018
+Executed: addi x10, x0, 0 (line: 5) ; PC =  hex: 0x000008
+Program exited with code: 0
+Executed: ecall (line: 6) ; PC =  hex: 0x00000c
+RISC Sim> Exiting simulator...
+[0m

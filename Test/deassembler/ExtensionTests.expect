@@ -1,0 +1,125 @@
+addi x30, x0, 0
+addi x29, x0, 0
+addi x29, x29, 1
+addi x1, x0, 12
+addi x2, x0, 45
+mul x3, x1, x2
+addi x31, x31, 540
+bne x3, x31, 320
+addi x29, x29, 1
+addi x1, x0, -100
+addi x2, x0, 25
+div x3, x1, x2
+addi x31, x0, -4
+bne x3, x31, 328
+addi x29, x29, 1
+addi x1, x0, 107
+addi x2, x0, 10
+rem x3, x1, x2
+addi x31, x0, 7
+bne x3, x31, 320
+addi x29, x29, 1
+lui x1, 0x80000
+ori x1, x1, 291
+addi x2, x0, 256
+remu x3, x1, x2
+addi x31, x0, 35
+bne x3, x31, 300
+addi x29, x29, 1
+lui x1, 0x12345
+slli x1, x1, 0
+ori x1, x1, 1656
+addiw x3, x1, 100
+addi x31, x0, 100
+addi x31, x31, 1656
+addi x29, x29, 1
+lui x1, 0x12345
+slli x1, x1, 0
+ori x1, x1, 1656
+slliw x3, x1, 4
+addi x31, x0, 1656
+slli x31, x31, 4
+addi x29, x29, 1
+lui x1, 0x80000
+addi x1, x1, 291
+srliw x3, x1, 8
+lui x31, 0x800
+addi x31, x31, 1
+bne x3, x31, 240
+addi x29, x29, 1
+lui x1, 0x80000
+addi x1, x1, 564
+sraiw x3, x1, 8
+lui x31, 0xff800
+addi x31, x31, 2
+bne x3, x31, 220
+addi x29, x29, 1
+addi x1, x0, 291
+addi x2, x0, 4
+sllw x3, x1, x2
+addi x31, x0, 291
+slli x31, x31, 4
+bne x3, x31, 216
+addi x29, x29, 1
+lui x1, 0x80001
+addi x1, x1, 564
+addi x2, x0, 12
+srlw x3, x1, x2
+lui x31, 0x80
+ori x31, x31, 1
+bne x3, x31, 192
+addi x29, x29, 1
+lui x1, 0x80001
+addi x1, x1, 564
+addi x2, x0, 12
+sraw x3, x1, x2
+lui x31, 0xfff80
+ori x31, x31, 1
+bne x3, x31, 168
+addi x29, x29, 1
+lui x1, 0x80000
+ori x1, x1, 255
+addi x2, x0, 256
+remuw x3, x1, x2
+addi x31, x0, 255
+bne x3, x31, 148
+addi x10, x0, 0
+ecall 
+addi x30, x0, 1
+beq x0, x0, 140
+addi x30, x0, 2
+beq x0, x0, 132
+addi x30, x0, 3
+beq x0, x0, 124
+addi x30, x0, 4
+beq x0, x0, 116
+addi x30, x0, 5
+beq x0, x0, 108
+addi x30, x0, 6
+beq x0, x0, 100
+addi x30, x0, 7
+beq x0, x0, 92
+addi x30, x0, 8
+beq x0, x0, 84
+addi x30, x0, 9
+beq x0, x0, 76
+addi x30, x0, 10
+beq x0, x0, 68
+addi x30, x0, 11
+beq x0, x0, 60
+addi x30, x0, 12
+beq x0, x0, 52
+addi x30, x0, 13
+beq x0, x0, 44
+addi x30, x0, 14
+beq x0, x0, 36
+addi x30, x0, 15
+beq x0, x0, 28
+addi x30, x0, 16
+beq x0, x0, 20
+addi x30, x0, 17
+beq x0, x0, 12
+addi x30, x0, 22
+beq x0, x0, 4
+add x10, x30, x0
+ecall 

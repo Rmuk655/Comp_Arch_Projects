@@ -1,0 +1,7 @@
+lui x2, 0x10000
+jal x1, 12
+addi x10, x0, 0
+ecall 
+addi x2, x2, -16
+sw x1, 0(x2)
+jalr x0, 0(x1)

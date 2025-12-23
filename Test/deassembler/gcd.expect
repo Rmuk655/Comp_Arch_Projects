@@ -1,0 +1,16 @@
+addi x10, x0, 98
+addi x11, x0, 56
+sub x5, x10, x11
+beq x5, x0, 28
+srai x6, x5, 31
+beq x6, x0, 12
+sub x11, x11, x10
+beq x0, x0, -20
+sub x10, x10, x11
+beq x0, x0, -28
+addi x17, x0, 14
+bne x17, x10, 12
+addi x10, x0, 0
+ecall 
+addi x10, x0, 1
+ecall 

@@ -1,0 +1,197 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test\factorial.s
+RISC Sim> No valid Instruction at line number: 1
+RISC Sim> Executed: addi x10, x0, 5 (line: 4) ; PC =  hex: 0x000000
+RISC Sim> x0: 0	x1: 0	x2: 0	x3: 0	x4: 0	x5: 0	x6: 0	x7: 0	x8: 0	x9: 0	x10: 5	x11: 0	x12: 0	x13: 0	x14: 0	x15: 0
+x16: 0	x17: 0	x18: 0	x19: 0	x20: 0	x21: 0	x22: 0	x23: 0	x24: 0	x25: 0	x26: 0	x27: 0	x28: 0	x29: 0	x30: 0	x31: 0
+RISC Sim> Printing currently loaded instructions .... 
+addi x10, x0, 5
+addi x11, x0, 120
+jal x1, factorial
+bne x10, x11, fail
+addi x10, x0, 0
+ecall
+addi x10, x0, 1
+ecall
+addi x5, x0, 1
+blt x10, x5, base_case
+beq x10, x5, base_case
+addi x2, x2, -8
+sw x1, 4(x2)
+sw x10, 0(x2)
+addi x10, x10, -1
+jal x1, factorial
+lw x5, 0(x2)
+lw x1, 4(x2)
+addi x2, x2, 8
+addi x6, x0, 0
+addi x7, x0, 0
+beq x7, x5, multiply_done
+add x6, x6, x10
+addi x7, x7, 1
+jal x0, multiply_loop
+addi x10, x6, 0
+jalr x0, 0(x1)
+addi x10, x0, 1
+jalr x0, 0(x1)
+RISC Sim> Call stack (oldest to newest):
+#0   * main * at line : 4 Next Instruction 0x00000004 
+RISC Sim> Executed: addi x11, x0, 120 (line: 5) ; PC =  hex: 0x000004
+Executed: jal x1, factorial (line: 7) ; PC =  hex: 0x000008
+Executed: addi x5, x0, 1 (line: 23) ; PC =  hex: 0x000020
+Executed: blt x10, x5, base_case (line: 25) ; PC =  hex: 0x000024
+Executed: beq x10, x5, base_case (line: 26) ; PC =  hex: 0x000028
+Executed: addi x2, x2, -8 (line: 29) ; PC =  hex: 0x00002c
+Executed: sw x1, 4(x2) (line: 30) ; PC =  hex: 0x000030
+Executed: sw x10, 0(x2) (line: 31) ; PC =  hex: 0x000034
+Executed: addi x10, x10, -1 (line: 33) ; PC =  hex: 0x000038
+Executed: jal x1, factorial (line: 34) ; PC =  hex: 0x00003c
+Executed: addi x5, x0, 1 (line: 23) ; PC =  hex: 0x000020
+Executed: blt x10, x5, base_case (line: 25) ; PC =  hex: 0x000024
+Executed: beq x10, x5, base_case (line: 26) ; PC =  hex: 0x000028
+Executed: addi x2, x2, -8 (line: 29) ; PC =  hex: 0x00002c
+Executed: sw x1, 4(x2) (line: 30) ; PC =  hex: 0x000030
+Executed: sw x10, 0(x2) (line: 31) ; PC =  hex: 0x000034
+Executed: addi x10, x10, -1 (line: 33) ; PC =  hex: 0x000038
+Executed: jal x1, factorial (line: 34) ; PC =  hex: 0x00003c
+Executed: addi x5, x0, 1 (line: 23) ; PC =  hex: 0x000020
+Executed: blt x10, x5, base_case (line: 25) ; PC =  hex: 0x000024
+Executed: beq x10, x5, base_case (line: 26) ; PC =  hex: 0x000028
+Executed: addi x2, x2, -8 (line: 29) ; PC =  hex: 0x00002c
+Executed: sw x1, 4(x2) (line: 30) ; PC =  hex: 0x000030
+Executed: sw x10, 0(x2) (line: 31) ; PC =  hex: 0x000034
+Executed: addi x10, x10, -1 (line: 33) ; PC =  hex: 0x000038
+Executed: jal x1, factorial (line: 34) ; PC =  hex: 0x00003c
+Executed: addi x5, x0, 1 (line: 23) ; PC =  hex: 0x000020
+Executed: blt x10, x5, base_case (line: 25) ; PC =  hex: 0x000024
+Executed: beq x10, x5, base_case (line: 26) ; PC =  hex: 0x000028
+Executed: addi x2, x2, -8 (line: 29) ; PC =  hex: 0x00002c
+Executed: sw x1, 4(x2) (line: 30) ; PC =  hex: 0x000030
+Executed: sw x10, 0(x2) (line: 31) ; PC =  hex: 0x000034
+Executed: addi x10, x10, -1 (line: 33) ; PC =  hex: 0x000038
+Executed: jal x1, factorial (line: 34) ; PC =  hex: 0x00003c
+Executed: addi x5, x0, 1 (line: 23) ; PC =  hex: 0x000020
+Executed: blt x10, x5, base_case (line: 25) ; PC =  hex: 0x000024
+Executed: beq x10, x5, base_case (line: 26) ; PC =  hex: 0x000028
+Executed: addi x10, x0, 1 (line: 56) ; PC =  hex: 0x00006c
+Warning! Shadow call stack mismatch! Expected: 0x20 but asking to pop 0x0
+Call stack (oldest to newest):
+#0   * main * at line : 7 Next Instruction 0x00000020 
+#1   factorial at line : 34 Next Instruction 0x00000020 
+#2   factorial at line : 34 Next Instruction 0x00000020 
+#3   factorial at line : 34 Next Instruction 0x00000020 
+#4   factorial at line : 34 Next Instruction 0x00000020 
+Executed: jalr x0, 0(x1) (line: 57) ; PC =  hex: 0x000070
+Executed: lw x5, 0(x2) (line: 37) ; PC =  hex: 0x000040
+Executed: lw x1, 4(x2) (line: 38) ; PC =  hex: 0x000044
+Executed: addi x2, x2, 8 (line: 39) ; PC =  hex: 0x000048
+Executed: addi x6, x0, 0 (line: 42) ; PC =  hex: 0x00004c
+Executed: addi x7, x0, 0 (line: 43) ; PC =  hex: 0x000050
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: add x6, x6, x10 (line: 47) ; PC =  hex: 0x000058
+Executed: addi x7, x7, 1 (line: 48) ; PC =  hex: 0x00005c
+Executed: jal x0, multiply_loop (line: 49) ; PC =  hex: 0x000060
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: add x6, x6, x10 (line: 47) ; PC =  hex: 0x000058
+Executed: addi x7, x7, 1 (line: 48) ; PC =  hex: 0x00005c
+Executed: jal x0, multiply_loop (line: 49) ; PC =  hex: 0x000060
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: addi x10, x6, 0 (line: 52) ; PC =  hex: 0x000064
+Warning! Shadow call stack mismatch! Expected: 0x20 but asking to pop 0x0
+Call stack (oldest to newest):
+#0   * main * at line : 7 Next Instruction 0x00000020 
+#1   factorial at line : 34 Next Instruction 0x00000020 
+#2   factorial at line : 34 Next Instruction 0x00000020 
+#3   factorial at line : 34 Next Instruction 0x00000020 
+Executed: jalr x0, 0(x1) (line: 53) ; PC =  hex: 0x000068
+Executed: lw x5, 0(x2) (line: 37) ; PC =  hex: 0x000040
+Executed: lw x1, 4(x2) (line: 38) ; PC =  hex: 0x000044
+Executed: addi x2, x2, 8 (line: 39) ; PC =  hex: 0x000048
+Executed: addi x6, x0, 0 (line: 42) ; PC =  hex: 0x00004c
+Executed: addi x7, x0, 0 (line: 43) ; PC =  hex: 0x000050
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: add x6, x6, x10 (line: 47) ; PC =  hex: 0x000058
+Executed: addi x7, x7, 1 (line: 48) ; PC =  hex: 0x00005c
+Executed: jal x0, multiply_loop (line: 49) ; PC =  hex: 0x000060
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: add x6, x6, x10 (line: 47) ; PC =  hex: 0x000058
+Executed: addi x7, x7, 1 (line: 48) ; PC =  hex: 0x00005c
+Executed: jal x0, multiply_loop (line: 49) ; PC =  hex: 0x000060
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: add x6, x6, x10 (line: 47) ; PC =  hex: 0x000058
+Executed: addi x7, x7, 1 (line: 48) ; PC =  hex: 0x00005c
+Executed: jal x0, multiply_loop (line: 49) ; PC =  hex: 0x000060
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: addi x10, x6, 0 (line: 52) ; PC =  hex: 0x000064
+Warning! Shadow call stack mismatch! Expected: 0x20 but asking to pop 0x0
+Call stack (oldest to newest):
+#0   * main * at line : 7 Next Instruction 0x00000020 
+#1   factorial at line : 34 Next Instruction 0x00000020 
+#2   factorial at line : 34 Next Instruction 0x00000020 
+Executed: jalr x0, 0(x1) (line: 53) ; PC =  hex: 0x000068
+Executed: lw x5, 0(x2) (line: 37) ; PC =  hex: 0x000040
+Executed: lw x1, 4(x2) (line: 38) ; PC =  hex: 0x000044
+Executed: addi x2, x2, 8 (line: 39) ; PC =  hex: 0x000048
+Executed: addi x6, x0, 0 (line: 42) ; PC =  hex: 0x00004c
+Executed: addi x7, x0, 0 (line: 43) ; PC =  hex: 0x000050
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: add x6, x6, x10 (line: 47) ; PC =  hex: 0x000058
+Executed: addi x7, x7, 1 (line: 48) ; PC =  hex: 0x00005c
+Executed: jal x0, multiply_loop (line: 49) ; PC =  hex: 0x000060
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: add x6, x6, x10 (line: 47) ; PC =  hex: 0x000058
+Executed: addi x7, x7, 1 (line: 48) ; PC =  hex: 0x00005c
+Executed: jal x0, multiply_loop (line: 49) ; PC =  hex: 0x000060
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: add x6, x6, x10 (line: 47) ; PC =  hex: 0x000058
+Executed: addi x7, x7, 1 (line: 48) ; PC =  hex: 0x00005c
+Executed: jal x0, multiply_loop (line: 49) ; PC =  hex: 0x000060
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: add x6, x6, x10 (line: 47) ; PC =  hex: 0x000058
+Executed: addi x7, x7, 1 (line: 48) ; PC =  hex: 0x00005c
+Executed: jal x0, multiply_loop (line: 49) ; PC =  hex: 0x000060
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: addi x10, x6, 0 (line: 52) ; PC =  hex: 0x000064
+Warning! Shadow call stack mismatch! Expected: 0x20 but asking to pop 0x0
+Call stack (oldest to newest):
+#0   * main * at line : 7 Next Instruction 0x00000020 
+#1   factorial at line : 34 Next Instruction 0x00000020 
+Executed: jalr x0, 0(x1) (line: 53) ; PC =  hex: 0x000068
+Executed: lw x5, 0(x2) (line: 37) ; PC =  hex: 0x000040
+Executed: lw x1, 4(x2) (line: 38) ; PC =  hex: 0x000044
+Executed: addi x2, x2, 8 (line: 39) ; PC =  hex: 0x000048
+Executed: addi x6, x0, 0 (line: 42) ; PC =  hex: 0x00004c
+Executed: addi x7, x0, 0 (line: 43) ; PC =  hex: 0x000050
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: add x6, x6, x10 (line: 47) ; PC =  hex: 0x000058
+Executed: addi x7, x7, 1 (line: 48) ; PC =  hex: 0x00005c
+Executed: jal x0, multiply_loop (line: 49) ; PC =  hex: 0x000060
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: add x6, x6, x10 (line: 47) ; PC =  hex: 0x000058
+Executed: addi x7, x7, 1 (line: 48) ; PC =  hex: 0x00005c
+Executed: jal x0, multiply_loop (line: 49) ; PC =  hex: 0x000060
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: add x6, x6, x10 (line: 47) ; PC =  hex: 0x000058
+Executed: addi x7, x7, 1 (line: 48) ; PC =  hex: 0x00005c
+Executed: jal x0, multiply_loop (line: 49) ; PC =  hex: 0x000060
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: add x6, x6, x10 (line: 47) ; PC =  hex: 0x000058
+Executed: addi x7, x7, 1 (line: 48) ; PC =  hex: 0x00005c
+Executed: jal x0, multiply_loop (line: 49) ; PC =  hex: 0x000060
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: add x6, x6, x10 (line: 47) ; PC =  hex: 0x000058
+Executed: addi x7, x7, 1 (line: 48) ; PC =  hex: 0x00005c
+Executed: jal x0, multiply_loop (line: 49) ; PC =  hex: 0x000060
+Executed: beq x7, x5, multiply_done (line: 46) ; PC =  hex: 0x000054
+Executed: addi x10, x6, 0 (line: 52) ; PC =  hex: 0x000064
+Warning! Shadow call stack mismatch! Expected: 0x20 but asking to pop 0x0
+Call stack (oldest to newest):
+#0   * main * at line : 7 Next Instruction 0x00000020 
+Executed: jalr x0, 0(x1) (line: 53) ; PC =  hex: 0x000068
+Executed: bne x10, x11, fail (line: 9) ; PC =  hex: 0x00000c
+Executed: addi x10, x0, 0 (line: 10) ; PC =  hex: 0x000010
+Program exited with code: 0
+Executed: ecall (line: 11) ; PC =  hex: 0x000014
+RISC Sim> Exiting simulator...
+[0m

@@ -1,0 +1,8 @@
+lui x2, 0x10000
+lw x1, 0(x2)
+addi x10, x0, 0
+bne x1, x10, 12
+addi x10, x0, 0
+ecall 
+addi x10, x0, 3
+ecall 

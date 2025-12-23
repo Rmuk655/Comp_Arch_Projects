@@ -1,0 +1,34 @@
+Pipeline Configuration:
+  Type: 5-Stage
+  Forwarding: Enabled
+  Window Size: 6
+
+
+Detected Hazards:
+   Instruction: mulw x4, x5, x6 at PC=0x4
+   Depends on: mul x1, x2, x3 (PC=0x0)
+   Distance: 1 instruction
+   Stall cycles: 2
+   Description: Structural hazard: both instructions use Mul/Div Unit
+   Solution: Stall pipeline until Mul/Div Unit is available
+
+   Instruction: div x7, x8, x9 at PC=0x8
+   Depends on: mulw x4, x5, x6 (PC=0x4)
+   Distance: 1 instruction
+   Stall cycles: 2
+   Description: Structural hazard: both instructions use Mul/Div Unit
+   Solution: Stall pipeline until Mul/Div Unit is available
+
+   Instruction: divuw x10, x11, x12 at PC=0xc
+   Depends on: div x7, x8, x9 (PC=0x8)
+   Distance: 1 instruction
+   Stall cycles: 2
+   Description: Structural hazard: both instructions use Mul/Div Unit
+   Solution: Stall pipeline until Mul/Div Unit is available
+
+
+Statistics:
+  Total Stalls: 6
+  Total Instructions: 5
+  Total Cycles: 11
+  CPI: 2.2

@@ -1,0 +1,15 @@
+lui x2, 0x10000
+addi x5, x0, 3
+jal x1, 28
+addi x11, x0, 3
+bne x10, x11, 12
+addi x10, x0, 0
+ecall 
+addi x10, x0, 4
+ecall 
+beq x5, x0, 16
+addi x10, x0, 0
+addi x5, x5, -1
+jal x0, -12
+addi x10, x5, 3
+jalr x0, 0(x1)

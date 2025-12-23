@@ -1,0 +1,79 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test\simpleops.s
+RISC Sim> No valid Instruction at line number: 1
+RISC Sim> Executed: addi     x3, x0, 3 (line: 3) ; PC =  hex: 0x000000
+RISC Sim> x0: 0	x1: 0	x2: 0	x3: 3	x4: 0	x5: 0	x6: 0	x7: 0	x8: 0	x9: 0	x10: 0	x11: 0	x12: 0	x13: 0	x14: 0	x15: 0
+x16: 0	x17: 0	x18: 0	x19: 0	x20: 0	x21: 0	x22: 0	x23: 0	x24: 0	x25: 0	x26: 0	x27: 0	x28: 0	x29: 0	x30: 0	x31: 0
+RISC Sim> Printing currently loaded instructions .... 
+addi     x3, x0, 3
+addi     x5, x3,3
+add     x6, x5, x5
+add     x7, x6, x6
+add     x8, x7, x7
+add     x11, x8, x5
+addi    x12, x0, 54
+bne     x11, x12, fail
+addi    x4, x0, 0
+addi    x5, x0, 10
+addi    x7, x0, 20
+add     x4, x4, x5
+addi    x5, x5, 1
+blt     x5, x7, LOOP
+add     x10, x4, x0
+addi    x11, x0, 145
+bne     x10, x11, fail
+addi x10,x0,0
+ecall
+addi x10,x0,1
+ecall
+RISC Sim> Call stack (oldest to newest):
+#0   * main * at line : 3 Next Instruction 0x00000004 
+RISC Sim> Executed: addi     x5, x3,3 (line: 4) ; PC =  hex: 0x000004
+Executed: add     x6, x5, x5 (line: 5) ; PC =  hex: 0x000008
+Executed: add     x7, x6, x6 (line: 6) ; PC =  hex: 0x00000c
+Executed: add     x8, x7, x7 (line: 7) ; PC =  hex: 0x000010
+Executed: add     x11, x8, x5 (line: 8) ; PC =  hex: 0x000014
+Executed: addi    x12, x0, 54 (line: 11) ; PC =  hex: 0x000018
+Executed: bne     x11, x12, fail (line: 12) ; PC =  hex: 0x00001c
+Executed: addi    x4, x0, 0 (line: 17) ; PC =  hex: 0x000020
+Executed: addi    x5, x0, 10 (line: 18) ; PC =  hex: 0x000024
+Executed: addi    x7, x0, 20 (line: 19) ; PC =  hex: 0x000028
+Executed: add     x4, x4, x5 (line: 22) ; PC =  hex: 0x00002c
+Executed: addi    x5, x5, 1 (line: 23) ; PC =  hex: 0x000030
+Executed: blt     x5, x7, LOOP (line: 24) ; PC =  hex: 0x000034
+Executed: add     x4, x4, x5 (line: 22) ; PC =  hex: 0x00002c
+Executed: addi    x5, x5, 1 (line: 23) ; PC =  hex: 0x000030
+Executed: blt     x5, x7, LOOP (line: 24) ; PC =  hex: 0x000034
+Executed: add     x4, x4, x5 (line: 22) ; PC =  hex: 0x00002c
+Executed: addi    x5, x5, 1 (line: 23) ; PC =  hex: 0x000030
+Executed: blt     x5, x7, LOOP (line: 24) ; PC =  hex: 0x000034
+Executed: add     x4, x4, x5 (line: 22) ; PC =  hex: 0x00002c
+Executed: addi    x5, x5, 1 (line: 23) ; PC =  hex: 0x000030
+Executed: blt     x5, x7, LOOP (line: 24) ; PC =  hex: 0x000034
+Executed: add     x4, x4, x5 (line: 22) ; PC =  hex: 0x00002c
+Executed: addi    x5, x5, 1 (line: 23) ; PC =  hex: 0x000030
+Executed: blt     x5, x7, LOOP (line: 24) ; PC =  hex: 0x000034
+Executed: add     x4, x4, x5 (line: 22) ; PC =  hex: 0x00002c
+Executed: addi    x5, x5, 1 (line: 23) ; PC =  hex: 0x000030
+Executed: blt     x5, x7, LOOP (line: 24) ; PC =  hex: 0x000034
+Executed: add     x4, x4, x5 (line: 22) ; PC =  hex: 0x00002c
+Executed: addi    x5, x5, 1 (line: 23) ; PC =  hex: 0x000030
+Executed: blt     x5, x7, LOOP (line: 24) ; PC =  hex: 0x000034
+Executed: add     x4, x4, x5 (line: 22) ; PC =  hex: 0x00002c
+Executed: addi    x5, x5, 1 (line: 23) ; PC =  hex: 0x000030
+Executed: blt     x5, x7, LOOP (line: 24) ; PC =  hex: 0x000034
+Executed: add     x4, x4, x5 (line: 22) ; PC =  hex: 0x00002c
+Executed: addi    x5, x5, 1 (line: 23) ; PC =  hex: 0x000030
+Executed: blt     x5, x7, LOOP (line: 24) ; PC =  hex: 0x000034
+Executed: add     x4, x4, x5 (line: 22) ; PC =  hex: 0x00002c
+Executed: addi    x5, x5, 1 (line: 23) ; PC =  hex: 0x000030
+Executed: blt     x5, x7, LOOP (line: 24) ; PC =  hex: 0x000034
+Executed: add     x10, x4, x0 (line: 26) ; PC =  hex: 0x000038
+Executed: addi    x11, x0, 145 (line: 30) ; PC =  hex: 0x00003c
+Executed: bne     x10, x11, fail (line: 31) ; PC =  hex: 0x000040
+Executed: addi x10,x0,0 (line: 34) ; PC =  hex: 0x000044
+Program exited with code: 0
+Executed: ecall (line: 35) ; PC =  hex: 0x000048
+RISC Sim> Exiting simulator...
+[0m

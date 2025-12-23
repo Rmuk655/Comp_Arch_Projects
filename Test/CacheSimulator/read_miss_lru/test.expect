@@ -1,0 +1,47 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Cache simulation enabled with configuration from Test/CacheSimulator\read_miss_lru\config
+RISC Sim> Loading program...
+Loaded program from Test/CacheSimulator\read_miss_lru\test.asm
+RISC Sim> Cache Simulation Status: Enabled
+Cache Size: 1024
+Block Size: 16
+Associativity: 2
+Replacement Policy: LRU
+Write Back Policy: WT
+RISC Sim> Executed: lui   t0, 0x1 (line: 4) ; PC =  hex: 0x000000
+RISC Sim> Executed: addi  t1, zero, 123 (line: 6) ; PC =  hex: 0x000004
+Executed: sw    t1, 0(t0) (line: 7) ; PC =  hex: 0x000008
+Executed: lw    t1, 0(t0) (line: 11) ; PC =  hex: 0x00000c
+Executed: lw    t2, 512(t0) (line: 12) ; PC =  hex: 0x000010
+Executed: lw    t3, 1024(t0) (line: 13) ; PC =  hex: 0x000014
+Executed: lw    t4, 512(t0) (line: 17) ; PC =  hex: 0x000018
+Executed: lw    t5, 0(t0) (line: 18) ; PC =  hex: 0x00001c
+Program completed (possibly reached end of program).
+Program: test
+D-cache statistics:   Accesses: 6   Hits: 1   Misses: 5   Hit Rate: 16.6667%
+RISC Sim> Set[0]:
+  Index: 0x00 | Tag: 0x00000008 | Clean | Data: [7b 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+  Index: 0x00 | Tag: 0x00000009 | Clean | Data: [00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+RISC Sim> Cache state dumped to cache_dump
+RISC Sim> Cache simulation disabled.
+RISC Sim> Cache simulation is not enabled to get simulation statistics.
+RISC Sim> Exiting simulator...
+[0m
+=== Log File ===
+W: Address: 0x1000, Set: 0x0, Tag: 0x8, Clean, Miss, WT Write-through (No Allocation)
+R: Address: 0x1000, Set: 0x0, Tag: 0x8, Clean, Miss, Replacing block in set using INVALID_BLOCK
+R: Address: 0x1000, Set: 0x0, Tag: 0x8, Clean, Miss, Read Allocated Block (WB or WT)
+R: Address: 0x1200, Set: 0x0, Tag: 0x9, Clean, Miss, Replacing block in set using INVALID_BLOCK
+R: Address: 0x1200, Set: 0x0, Tag: 0x9, Clean, Miss, Read Allocated Block (WB or WT)
+W: Address: 0x1400, Set: 0x0, Tag: 0x8, Clean, Evicting clean block
+R: Address: 0x1400, Set: 0x0, Tag: 0xa, Clean, Miss, Replacing block in set using LRU
+R: Address: 0x1400, Set: 0x0, Tag: 0xa, Clean, Miss, Read Allocated Block (WB or WT)
+R: Address: 0x1200, Set: 0x0, Tag: 0x9, Clean, Hit
+W: Address: 0x1000, Set: 0x0, Tag: 0xa, Clean, Evicting clean block
+R: Address: 0x1000, Set: 0x0, Tag: 0x8, Clean, Miss, Replacing block in set using LRU
+R: Address: 0x1000, Set: 0x0, Tag: 0x8, Clean, Miss, Read Allocated Block (WB or WT)
+
+=== Cache Dump ===
+Set[0]:
+  Index: 0x00 | Tag: 0x00000008 | Clean | Data: [7b 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+  Index: 0x00 | Tag: 0x00000009 | Clean | Data: [00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]

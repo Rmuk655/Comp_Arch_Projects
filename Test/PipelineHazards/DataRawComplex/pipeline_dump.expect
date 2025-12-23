@@ -1,0 +1,60 @@
+Pipeline Configuration:
+  Type: 5-Stage
+  Forwarding: Enabled
+  Window Size: 6
+
+
+Detected Hazards:
+   Instruction: sub x4, x1, x5 at PC=0x4
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+   Instruction: div x8, x6, x1 at PC=0xc
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 3 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+   Instruction: mul x6, x4, x7 at PC=0x8
+   Depends on: sub x4, x1, x5 (PC=0x4)
+   Distance: 1 instruction
+   Register: x4   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x4
+   Solution: No stall needed (forwarding available)
+
+   Instruction: div x8, x6, x1 at PC=0xc
+   Depends on: mul x6, x4, x7 (PC=0x8)
+   Distance: 1 instruction
+   Register: x6   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x6
+   Solution: No stall needed (forwarding available)
+
+   Instruction: div x8, x6, x1 at PC=0xc
+   Depends on: mul x6, x4, x7 (PC=0x8)
+   Distance: 1 instruction
+   Stall cycles: 2
+   Description: Structural hazard: both instructions use Mul/Div Unit
+   Solution: Stall pipeline until Mul/Div Unit is available
+
+   Instruction: or x9, x8, x10 at PC=0x10
+   Depends on: div x8, x6, x1 (PC=0xc)
+   Distance: 1 instruction
+   Register: x8   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x8
+   Solution: No stall needed (forwarding available)
+
+
+Statistics:
+  Total Stalls: 2
+  Total Instructions: 5
+  Total Cycles: 7
+  CPI: 1.4

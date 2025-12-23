@@ -1,0 +1,40 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test\multFunctionCall.s
+RISC Sim> Breakpoint set at line 1
+RISC Sim> Executed: jal x1, mult_loop (line: 1) ; PC =  hex: 0x000000
+RISC Sim> x0: 0	x1: 4	x2: 0	x3: 0	x4: 0	x5: 0	x6: 0	x7: 0	x8: 0	x9: 0	x10: 0	x11: 0	x12: 0	x13: 0	x14: 0	x15: 0
+x16: 0	x17: 0	x18: 0	x19: 0	x20: 0	x21: 0	x22: 0	x23: 0	x24: 0	x25: 0	x26: 0	x27: 0	x28: 0	x29: 0	x30: 0	x31: 0
+RISC Sim> Printing currently loaded instructions .... 
+jal x1, mult_loop
+ecall
+addi sp, sp, -4
+sw x1, 0(sp)
+jal x1, inner_func
+lw x1, 0(sp)
+addi sp, sp, 4
+jalr x0, x1, 0
+addi x5, x0, 42
+jalr x0, x1, 0
+RISC Sim> Call stack (oldest to newest):
+#0   * main * at line : 1 Next Instruction 0x00000008 
+#1   mult_loop at line : 8 Next Instruction 0x00000008 
+RISC Sim> Executed: addi sp, sp, -4 (line: 8) ; PC =  hex: 0x000008
+Executed: sw x1, 0(sp) (line: 9) ; PC =  hex: 0x00000c
+Executed: jal x1, inner_func (line: 11) ; PC =  hex: 0x000010
+Executed: addi x5, x0, 42 (line: 20) ; PC =  hex: 0x000020
+Warning! Shadow call stack mismatch! Expected: 0x20 but asking to pop 0x0
+Call stack (oldest to newest):
+#0   * main * at line : 1 Next Instruction 0x00000008 
+#1   mult_loop at line : 11 Next Instruction 0x00000020 
+Executed: jalr x0, x1, 0 (line: 21) ; PC =  hex: 0x000024
+Executed: lw x1, 0(sp) (line: 13) ; PC =  hex: 0x000014
+Executed: addi sp, sp, 4 (line: 14) ; PC =  hex: 0x000018
+Warning! Shadow call stack mismatch! Expected: 0x8 but asking to pop 0x0
+Call stack (oldest to newest):
+#0   * main * at line : 1 Next Instruction 0x00000008 
+Executed: jalr x0, x1, 0 (line: 15) ; PC =  hex: 0x00001c
+Program exited with code: 0
+Executed: ecall (line: 3) ; PC =  hex: 0x000004
+RISC Sim> Exiting simulator...
+[0m

@@ -1,0 +1,130 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test\complexMul.s
+RISC Sim> Breakpoint set at line 1
+RISC Sim> Executed: addi x5, x0, 1 (line: 1) ; PC =  hex: 0x000000
+RISC Sim> x0: 0	x1: 0	x2: 0	x3: 0	x4: 0	x5: 1	x6: 0	x7: 0	x8: 0	x9: 0	x10: 0	x11: 0	x12: 0	x13: 0	x14: 0	x15: 0
+x16: 0	x17: 0	x18: 0	x19: 0	x20: 0	x21: 0	x22: 0	x23: 0	x24: 0	x25: 0	x26: 0	x27: 0	x28: 0	x29: 0	x30: 0	x31: 0
+RISC Sim> Printing currently loaded instructions .... 
+addi x5, x0, 1
+addi x6, x0, 2
+addi x7, x0, 3
+addi x8, x0, 4
+addi x9,  x0, 0
+addi x10, x0, 0
+addi x12, x0, 0
+addi x13, x0, 0
+addi x15, x0, 0
+beq  x15, x7, end_loop_rr
+add  x9, x9, x5
+addi x15, x15, 1
+beq  x0, x0, loop_rr
+addi x16, x0, 0
+beq  x16, x8, end_loop_ii
+add  x10, x10, x6
+addi x16, x16, 1
+beq  x0, x0, loop_ii
+sub x11, x9, x10
+addi x17, x0, 0
+beq  x17, x8, end_loop_rb
+add  x12, x12, x5
+addi x17, x17, 1
+beq  x0, x0, loop_rb
+addi x18, x0, 0
+beq  x18, x7, end_loop_ir
+add  x13, x13, x6
+addi x18, x18, 1
+beq  x0, x0, loop_ir
+add x14, x12, x13
+addi x15, x0,-5
+bne x11, x15, fail
+addi x15, x0, 10
+bne x14, x15, fail
+addi x10, x0, 0
+ecall
+addi x10, x0, 1
+ecall
+RISC Sim> Call stack (oldest to newest):
+#0   * main * at line : 1 Next Instruction 0x00000004 
+RISC Sim> Executed: addi x6, x0, 2 (line: 2) ; PC =  hex: 0x000004
+Executed: addi x7, x0, 3 (line: 3) ; PC =  hex: 0x000008
+Executed: addi x8, x0, 4 (line: 4) ; PC =  hex: 0x00000c
+Executed: addi x9,  x0, 0 (line: 7) ; PC =  hex: 0x000010
+Executed: addi x10, x0, 0 (line: 8) ; PC =  hex: 0x000014
+Executed: addi x12, x0, 0 (line: 9) ; PC =  hex: 0x000018
+Executed: addi x13, x0, 0 (line: 10) ; PC =  hex: 0x00001c
+Executed: addi x15, x0, 0 (line: 14) ; PC =  hex: 0x000020
+Executed: beq  x15, x7, end_loop_rr (line: 16) ; PC =  hex: 0x000024
+Executed: add  x9, x9, x5 (line: 17) ; PC =  hex: 0x000028
+Executed: addi x15, x15, 1 (line: 18) ; PC =  hex: 0x00002c
+Executed: beq  x0, x0, loop_rr (line: 19) ; PC =  hex: 0x000030
+Executed: beq  x15, x7, end_loop_rr (line: 16) ; PC =  hex: 0x000024
+Executed: add  x9, x9, x5 (line: 17) ; PC =  hex: 0x000028
+Executed: addi x15, x15, 1 (line: 18) ; PC =  hex: 0x00002c
+Executed: beq  x0, x0, loop_rr (line: 19) ; PC =  hex: 0x000030
+Executed: beq  x15, x7, end_loop_rr (line: 16) ; PC =  hex: 0x000024
+Executed: add  x9, x9, x5 (line: 17) ; PC =  hex: 0x000028
+Executed: addi x15, x15, 1 (line: 18) ; PC =  hex: 0x00002c
+Executed: beq  x0, x0, loop_rr (line: 19) ; PC =  hex: 0x000030
+Executed: beq  x15, x7, end_loop_rr (line: 16) ; PC =  hex: 0x000024
+Executed: addi x16, x0, 0 (line: 24) ; PC =  hex: 0x000034
+Executed: beq  x16, x8, end_loop_ii (line: 26) ; PC =  hex: 0x000038
+Executed: add  x10, x10, x6 (line: 27) ; PC =  hex: 0x00003c
+Executed: addi x16, x16, 1 (line: 28) ; PC =  hex: 0x000040
+Executed: beq  x0, x0, loop_ii (line: 29) ; PC =  hex: 0x000044
+Executed: beq  x16, x8, end_loop_ii (line: 26) ; PC =  hex: 0x000038
+Executed: add  x10, x10, x6 (line: 27) ; PC =  hex: 0x00003c
+Executed: addi x16, x16, 1 (line: 28) ; PC =  hex: 0x000040
+Executed: beq  x0, x0, loop_ii (line: 29) ; PC =  hex: 0x000044
+Executed: beq  x16, x8, end_loop_ii (line: 26) ; PC =  hex: 0x000038
+Executed: add  x10, x10, x6 (line: 27) ; PC =  hex: 0x00003c
+Executed: addi x16, x16, 1 (line: 28) ; PC =  hex: 0x000040
+Executed: beq  x0, x0, loop_ii (line: 29) ; PC =  hex: 0x000044
+Executed: beq  x16, x8, end_loop_ii (line: 26) ; PC =  hex: 0x000038
+Executed: add  x10, x10, x6 (line: 27) ; PC =  hex: 0x00003c
+Executed: addi x16, x16, 1 (line: 28) ; PC =  hex: 0x000040
+Executed: beq  x0, x0, loop_ii (line: 29) ; PC =  hex: 0x000044
+Executed: beq  x16, x8, end_loop_ii (line: 26) ; PC =  hex: 0x000038
+Executed: sub x11, x9, x10 (line: 34) ; PC =  hex: 0x000048
+Executed: addi x17, x0, 0 (line: 38) ; PC =  hex: 0x00004c
+Executed: beq  x17, x8, end_loop_rb (line: 40) ; PC =  hex: 0x000050
+Executed: add  x12, x12, x5 (line: 41) ; PC =  hex: 0x000054
+Executed: addi x17, x17, 1 (line: 42) ; PC =  hex: 0x000058
+Executed: beq  x0, x0, loop_rb (line: 43) ; PC =  hex: 0x00005c
+Executed: beq  x17, x8, end_loop_rb (line: 40) ; PC =  hex: 0x000050
+Executed: add  x12, x12, x5 (line: 41) ; PC =  hex: 0x000054
+Executed: addi x17, x17, 1 (line: 42) ; PC =  hex: 0x000058
+Executed: beq  x0, x0, loop_rb (line: 43) ; PC =  hex: 0x00005c
+Executed: beq  x17, x8, end_loop_rb (line: 40) ; PC =  hex: 0x000050
+Executed: add  x12, x12, x5 (line: 41) ; PC =  hex: 0x000054
+Executed: addi x17, x17, 1 (line: 42) ; PC =  hex: 0x000058
+Executed: beq  x0, x0, loop_rb (line: 43) ; PC =  hex: 0x00005c
+Executed: beq  x17, x8, end_loop_rb (line: 40) ; PC =  hex: 0x000050
+Executed: add  x12, x12, x5 (line: 41) ; PC =  hex: 0x000054
+Executed: addi x17, x17, 1 (line: 42) ; PC =  hex: 0x000058
+Executed: beq  x0, x0, loop_rb (line: 43) ; PC =  hex: 0x00005c
+Executed: beq  x17, x8, end_loop_rb (line: 40) ; PC =  hex: 0x000050
+Executed: addi x18, x0, 0 (line: 48) ; PC =  hex: 0x000060
+Executed: beq  x18, x7, end_loop_ir (line: 50) ; PC =  hex: 0x000064
+Executed: add  x13, x13, x6 (line: 51) ; PC =  hex: 0x000068
+Executed: addi x18, x18, 1 (line: 52) ; PC =  hex: 0x00006c
+Executed: beq  x0, x0, loop_ir (line: 53) ; PC =  hex: 0x000070
+Executed: beq  x18, x7, end_loop_ir (line: 50) ; PC =  hex: 0x000064
+Executed: add  x13, x13, x6 (line: 51) ; PC =  hex: 0x000068
+Executed: addi x18, x18, 1 (line: 52) ; PC =  hex: 0x00006c
+Executed: beq  x0, x0, loop_ir (line: 53) ; PC =  hex: 0x000070
+Executed: beq  x18, x7, end_loop_ir (line: 50) ; PC =  hex: 0x000064
+Executed: add  x13, x13, x6 (line: 51) ; PC =  hex: 0x000068
+Executed: addi x18, x18, 1 (line: 52) ; PC =  hex: 0x00006c
+Executed: beq  x0, x0, loop_ir (line: 53) ; PC =  hex: 0x000070
+Executed: beq  x18, x7, end_loop_ir (line: 50) ; PC =  hex: 0x000064
+Executed: add x14, x12, x13 (line: 58) ; PC =  hex: 0x000074
+Executed: addi x15, x0,-5 (line: 63) ; PC =  hex: 0x000078
+Executed: bne x11, x15, fail (line: 64) ; PC =  hex: 0x00007c
+Executed: addi x15, x0, 10 (line: 65) ; PC =  hex: 0x000080
+Executed: bne x14, x15, fail (line: 66) ; PC =  hex: 0x000084
+Executed: addi x10, x0, 0 (line: 68) ; PC =  hex: 0x000088
+Program exited with code: 0
+Executed: ecall (line: 69) ; PC =  hex: 0x00008c
+RISC Sim> Exiting simulator...
+[0m

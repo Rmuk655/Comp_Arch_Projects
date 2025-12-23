@@ -1,0 +1,236 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test\Multiply.s
+RISC Sim> No valid Instruction at line number: 1
+RISC Sim> Executed: addi x10, x0, 3 (line: 6) ; PC =  hex: 0x000000
+RISC Sim> x0: 0	x1: 0	x2: 0	x3: 0	x4: 0	x5: 0	x6: 0	x7: 0	x8: 0	x9: 0	x10: 3	x11: 0	x12: 0	x13: 0	x14: 0	x15: 0
+x16: 0	x17: 0	x18: 0	x19: 0	x20: 0	x21: 0	x22: 0	x23: 0	x24: 0	x25: 0	x26: 0	x27: 0	x28: 0	x29: 0	x30: 0	x31: 0
+RISC Sim> Printing currently loaded instructions .... 
+addi x10, x0, 3
+addi x11, x0, 4
+addi x9, x0, 0
+addi x5, x0, 32
+addi x6, x0, 0
+addi x7, x0, 0
+addi x8, x0, 0
+andi x6, x11, 1
+beq x6, x0, skip_add
+add  x9, x9, x10
+slli x10, x10, 1
+srli x11, x11, 1
+addi x5, x5, -1
+bne x5, x0, mult_loop
+addi x15,x0, 12
+bne x9,x15,fail
+addi x10,x0,0
+ecall
+addi x10,x0,1
+ecall
+RISC Sim> Call stack (oldest to newest):
+#0   * main * at line : 6 Next Instruction 0x00000004 
+RISC Sim> Executed: addi x11, x0, 4 (line: 7) ; PC =  hex: 0x000004
+Executed: addi x9, x0, 0 (line: 8) ; PC =  hex: 0x000008
+Executed: addi x5, x0, 32 (line: 9) ; PC =  hex: 0x00000c
+Executed: addi x6, x0, 0 (line: 10) ; PC =  hex: 0x000010
+Executed: addi x7, x0, 0 (line: 11) ; PC =  hex: 0x000014
+Executed: addi x8, x0, 0 (line: 12) ; PC =  hex: 0x000018
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: add  x9, x9, x10 (line: 17) ; PC =  hex: 0x000024
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: andi x6, x11, 1 (line: 15) ; PC =  hex: 0x00001c
+Executed: beq x6, x0, skip_add (line: 16) ; PC =  hex: 0x000020
+Executed: slli x10, x10, 1 (line: 20) ; PC =  hex: 0x000028
+Executed: srli x11, x11, 1 (line: 21) ; PC =  hex: 0x00002c
+Executed: addi x5, x5, -1 (line: 22) ; PC =  hex: 0x000030
+Executed: bne x5, x0, mult_loop (line: 23) ; PC =  hex: 0x000034
+Executed: addi x15,x0, 12 (line: 29) ; PC =  hex: 0x000038
+Executed: bne x9,x15,fail (line: 30) ; PC =  hex: 0x00003c
+Executed: addi x10,x0,0 (line: 31) ; PC =  hex: 0x000040
+Program exited with code: 0
+Executed: ecall (line: 32) ; PC =  hex: 0x000044
+RISC Sim> Exiting simulator...
+[0m

@@ -1,0 +1,115 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test/PipelineHazards\DataWAWSimple\test.asm
+RISC Sim> Pipeline hazard detection enabled
+Pipeline simulation enabled with hazard detection.
+RISC Sim> Pipeline Status:
+  Enabled: Yes
+  Type: 5-Stage
+  Forwarding: Enabled
+  Window Size: 6
+  Current Cycle: 0
+  Cache Simulation: Disabled
+RISC Sim> 
+=== PERFORMANCE ANALYSIS ===
+Program instructions: 4
+Total hazards detected: 3
+Total stall cycles: 0
+Estimated CPI (without hazards): 1.0
+Estimated CPI (with hazards): 1
+===========================
+
+Static analysis of pipeline completed.
+RISC Sim> 
+=== Critical Hazards (Stalls > 0) ===
+None
+
+=== Resolved / Non-Critical Hazards ===
+   Instruction: mul x1, x7, x8 at PC=0x8
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 2 instructions
+   Register: x1   Stall cycles: 0
+   Note: WAW hazard resolved by instruction separation or writeback timing
+   Description: WAW Hazard: Write-after-Write on x1
+   Solution: Reorder writes or stall to avoid overwriting
+
+   Instruction: or x9, x1, x10 at PC=0xc
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 3 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+   Instruction: or x9, x1, x10 at PC=0xc
+   Depends on: mul x1, x7, x8 (PC=0x8)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+RISC Sim> Pipeline Stall Statistics:
+  Total Stalls: 0
+  Total Instructions: 4
+  Total Cycles: 4
+  CPI: 1
+RISC Sim> Pipeline state dumped to Test/PipelineHazards\DataWAWSimple./pipeline_dump
+Pipeline analysis dumped to Test/PipelineHazards\DataWAWSimple./pipeline_dump
+RISC Sim> Data forwarding disabled
+Data forwarding disabled.
+RISC Sim> Pipeline Status:
+  Enabled: Yes
+  Type: 5-Stage
+  Forwarding: Disabled
+  Window Size: 6
+  Current Cycle: 0
+  Cache Simulation: Disabled
+RISC Sim> 
+=== PERFORMANCE ANALYSIS ===
+Program instructions: 4
+Total hazards detected: 3
+Total stall cycles: 2
+Estimated CPI (without hazards): 1.0
+Estimated CPI (with hazards): 1.5
+===========================
+
+Static analysis of pipeline completed.
+RISC Sim> 
+=== Critical Hazards (Stalls > 0) ===
+   Instruction: or x9, x1, x10 at PC=0xc
+   Depends on: mul x1, x7, x8 (PC=0x8)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 2
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: 2 cycle stall required
+
+
+=== Resolved / Non-Critical Hazards ===
+   Instruction: mul x1, x7, x8 at PC=0x8
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 2 instructions
+   Register: x1   Stall cycles: 0
+   Note: WAW hazard resolved by instruction separation or writeback timing
+   Description: WAW Hazard: Write-after-Write on x1
+   Solution: Reorder writes or stall to avoid overwriting
+
+   Instruction: or x9, x1, x10 at PC=0xc
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 3 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed
+
+RISC Sim> Pipeline Stall Statistics:
+  Total Stalls: 2
+  RAW Hazards: 2
+  Total Instructions: 4
+  Total Cycles: 6
+  CPI: 1.5
+RISC Sim> Pipeline cleared
+Pipeline state cleared.
+RISC Sim> No hazards detected in current instruction window
+RISC Sim> Exiting simulator...
+[0m

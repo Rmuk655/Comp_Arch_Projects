@@ -1,0 +1,20 @@
+Pipeline Configuration:
+  Type: 5-Stage
+  Forwarding: Enabled
+  Window Size: 6
+
+
+Detected Hazards:
+   Instruction: lw x3, 4(x4) at PC=0x4
+   Depends on: lw x1, 0(x2) (PC=0x0)
+   Distance: 1 instruction
+   Stall cycles: 1
+   Description: Structural hazard: both instructions use Memory Access Unit
+   Solution: Stall pipeline until Memory Access Unit is available
+
+
+Statistics:
+  Total Stalls: 1
+  Total Instructions: 4
+  Total Cycles: 5
+  CPI: 1.25

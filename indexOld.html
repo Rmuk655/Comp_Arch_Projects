@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WebAssembly RISC-V Simulator</title>
+<link rel="stylesheet" href="styles.css" />
+  <style>
+  </style>
+</head>
+<body>
+  <script type="module" src="script.js"></script>  
+  <div id="controls">
+    <button id="loadManualBtn">✅ Load</button>
+    <button id="runBtn" disabled>▶ Run (F5)</button>
+    <button id="stepBtn" disabled>➡️ Step (F10)</button>
+    <button onclick="clearConsole()">🧹 Clear Console</button>
+  </div>
+
+  <div id="main">
+    <div id="leftPane">
+      <div id="editorContainer">
+        <textarea id="codeTextarea" disabled></textarea>
+        <div id="highlightOverlay"></div>
+
+      </div>
+      <div id="consoleOutput"></div>
+    </div>
+
+    <div id="rightPane">
+      <div id="registerView">
+        <table id="registerTable">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Alias</th>
+            <th>Value</th>
+            <th>Name</th>
+            <th>Alias</th>
+            <th>Value</th>
+          </tr>        
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div id="stackView"></div>
+    </div>
+  </div>
+
+
+</body>
+</html>

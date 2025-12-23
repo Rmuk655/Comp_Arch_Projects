@@ -1,0 +1,112 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test\simulatorUnitTests.s
+RISC Sim> No valid Instruction at line number: 1
+RISC Sim> Executed: addi x30, x0, 0 (line: 6) ; PC =  hex: 0x000000
+RISC Sim> x0: 0	x1: 0	x2: 0	x3: 0	x4: 0	x5: 0	x6: 0	x7: 0	x8: 0	x9: 0	x10: 0	x11: 0	x12: 0	x13: 0	x14: 0	x15: 0
+x16: 0	x17: 0	x18: 0	x19: 0	x20: 0	x21: 0	x22: 0	x23: 0	x24: 0	x25: 0	x26: 0	x27: 0	x28: 0	x29: 0	x30: 0	x31: 0
+RISC Sim> Printing currently loaded instructions .... 
+addi x30, x0, 0
+addi x1, x0, 10
+addi x2, x0, 20
+add x3, x1, x2
+addi x31, x0, 10
+addi x31, x31, 10
+addi x31, x31, 10
+bne x3, x31, fail_add
+sub x4, x2, x1
+addi x31, x0, 10
+bne x4, x31, fail_sub
+andi x5, x1, 15
+addi x31, x0, 10
+bne x5, x31, fail_andi
+ori x6, x1, 15
+addi x31, x0, 15
+bne x6, x31, fail_ori
+xori x7, x1, 15
+addi x31, x0, 5
+bne x7, x31, fail_xori
+slli x8, x1, 1
+addi x31, x0, 20
+bne x8, x31, fail_slli
+srli x9, x2, 2
+addi x31, x0, 5
+bne x9, x31, fail_srli
+addi x10, x0, -16
+srai x11, x10, 2
+addi x31, x0, -4
+bne x11, x31, fail_srai
+addi x12, x0, 100
+addi x13, x0, 0x12345678
+sw x13, 0(x12)
+lw x14, 0(x12)
+addi x31, x0, 305000000
+lui x31, 0x12345
+addi x31, x31, 0x678
+bne x14, x31, fail_mem
+addi x10, x0, 0
+ecall
+addi x10, x0, 1
+ecall
+addi x30, x0, 1
+beq x0, x0, loop
+addi x30, x0, 2
+beq x0, x0, loop
+addi x30, x0, 3
+beq x0, x0, loop
+addi x30, x0, 4
+beq x0, x0, loop
+addi x30, x0, 5
+beq x0, x0, loop
+addi x30, x0, 6
+beq x0, x0, loop
+addi x30, x0, 7
+beq x0, x0, loop
+addi x30, x0, 8
+beq x0, x0, loop
+addi x30, x0, 9
+beq x0, x0, loop
+RISC Sim> Call stack (oldest to newest):
+#0   * main * at line : 6 Next Instruction 0x00000004 
+RISC Sim> Executed: addi x1, x0, 10 (line: 9) ; PC =  hex: 0x000004
+Executed: addi x2, x0, 20 (line: 10) ; PC =  hex: 0x000008
+Executed: add x3, x1, x2 (line: 11) ; PC =  hex: 0x00000c
+Executed: addi x31, x0, 10 (line: 14) ; PC =  hex: 0x000010
+Executed: addi x31, x31, 10 (line: 15) ; PC =  hex: 0x000014
+Executed: addi x31, x31, 10 (line: 16) ; PC =  hex: 0x000018
+Executed: bne x3, x31, fail_add (line: 18) ; PC =  hex: 0x00001c
+Executed: sub x4, x2, x1 (line: 21) ; PC =  hex: 0x000020
+Executed: addi x31, x0, 10 (line: 23) ; PC =  hex: 0x000024
+Executed: bne x4, x31, fail_sub (line: 25) ; PC =  hex: 0x000028
+Executed: andi x5, x1, 15 (line: 28) ; PC =  hex: 0x00002c
+Executed: addi x31, x0, 10 (line: 30) ; PC =  hex: 0x000030
+Executed: bne x5, x31, fail_andi (line: 32) ; PC =  hex: 0x000034
+Executed: ori x6, x1, 15 (line: 35) ; PC =  hex: 0x000038
+Executed: addi x31, x0, 15 (line: 37) ; PC =  hex: 0x00003c
+Executed: bne x6, x31, fail_ori (line: 39) ; PC =  hex: 0x000040
+Executed: xori x7, x1, 15 (line: 42) ; PC =  hex: 0x000044
+Executed: addi x31, x0, 5 (line: 44) ; PC =  hex: 0x000048
+Executed: bne x7, x31, fail_xori (line: 46) ; PC =  hex: 0x00004c
+Executed: slli x8, x1, 1 (line: 49) ; PC =  hex: 0x000050
+Executed: addi x31, x0, 20 (line: 51) ; PC =  hex: 0x000054
+Executed: bne x8, x31, fail_slli (line: 53) ; PC =  hex: 0x000058
+Executed: srli x9, x2, 2 (line: 56) ; PC =  hex: 0x00005c
+Executed: addi x31, x0, 5 (line: 58) ; PC =  hex: 0x000060
+Executed: bne x9, x31, fail_srli (line: 60) ; PC =  hex: 0x000064
+Executed: addi x10, x0, -16 (line: 63) ; PC =  hex: 0x000068
+Executed: srai x11, x10, 2 (line: 64) ; PC =  hex: 0x00006c
+Executed: addi x31, x0, -4 (line: 66) ; PC =  hex: 0x000070
+Executed: bne x11, x31, fail_srai (line: 68) ; PC =  hex: 0x000074
+Executed: addi x12, x0, 100 (line: 72) ; PC =  hex: 0x000078
+Executed: addi x13, x0, 0x12345678 (line: 73) ; PC =  hex: 0x00007c
+Executed: sw x13, 0(x12) (line: 75) ; PC =  hex: 0x000080
+Executed: lw x14, 0(x12) (line: 76) ; PC =  hex: 0x000084
+Executed: addi x31, x0, 305000000 (line: 84) ; PC =  hex: 0x000088
+Executed: lui x31, 0x12345 (line: 89) ; PC =  hex: 0x00008c
+Executed: addi x31, x31, 0x678 (line: 90) ; PC =  hex: 0x000090
+Executed: bne x14, x31, fail_mem (line: 92) ; PC =  hex: 0x000094
+Executed: addi x10, x0, 0 (line: 96) ; PC =  hex: 0x000098
+Program exited with code: 0
+Executed: ecall (line: 97) ; PC =  hex: 0x00009c
+RISC Sim> Exiting simulator...
+[0m

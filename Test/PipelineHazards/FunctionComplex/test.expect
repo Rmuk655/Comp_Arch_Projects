@@ -1,0 +1,169 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test/PipelineHazards\FunctionComplex\test.asm
+RISC Sim> Pipeline hazard detection enabled
+Pipeline simulation enabled with hazard detection.
+RISC Sim> Pipeline Status:
+  Enabled: Yes
+  Type: 5-Stage
+  Forwarding: Enabled
+  Window Size: 6
+  Current Cycle: 0
+  Cache Simulation: Disabled
+RISC Sim> 
+=== PERFORMANCE ANALYSIS ===
+Program instructions: 6
+Total hazards detected: 7
+Total stall cycles: 2
+Estimated CPI (without hazards): 1.0
+Estimated CPI (with hazards): 1.33333
+===========================
+
+Static analysis of pipeline completed.
+RISC Sim> 
+=== Critical Hazards (Stalls > 0) ===
+   Instruction: jalr x0, 0(x1) at PC=0x14
+   Stall cycles: 2
+   Description: Control hazard from Function return: jalr
+   Solution: Use branch prediction or delayed branching (2 cycles)
+
+
+=== Resolved / Non-Critical Hazards ===
+   Instruction: jal x1, function at PC=0x4
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 0
+   Note: WAW hazard resolved by instruction separation or writeback timing
+   Description: WAW Hazard: Write-after-Write on x1
+   Solution: Reorder writes or stall to avoid overwriting
+
+   Instruction: add x4, x1, x5 at PC=0x8
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 2 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+   Instruction: jalr x0, 0(x1) at PC=0x14
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 5 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+   Instruction: jal x1, function at PC=0x4
+   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: Control hazard from Branch instruction: jal
+   Solution: Use branch prediction or delayed branching (0 cycles)
+
+   Instruction: add x4, x1, x5 at PC=0x8
+   Depends on: jal x1, function (PC=0x4)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+   Instruction: jalr x0, 0(x1) at PC=0x14
+   Depends on: jal x1, function (PC=0x4)
+   Distance: 4 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+RISC Sim> Pipeline Stall Statistics:
+  Total Stalls: 2
+  Control Hazards: 2
+  Total Instructions: 6
+  Total Cycles: 8
+  CPI: 1.33333
+RISC Sim> Pipeline state dumped to Test/PipelineHazards\FunctionComplex./pipeline_dump
+Pipeline analysis dumped to Test/PipelineHazards\FunctionComplex./pipeline_dump
+RISC Sim> Data forwarding disabled
+Data forwarding disabled.
+RISC Sim> Pipeline Status:
+  Enabled: Yes
+  Type: 5-Stage
+  Forwarding: Disabled
+  Window Size: 6
+  Current Cycle: 0
+  Cache Simulation: Disabled
+RISC Sim> 
+=== PERFORMANCE ANALYSIS ===
+Program instructions: 6
+Total hazards detected: 7
+Total stall cycles: 5
+Estimated CPI (without hazards): 1.0
+Estimated CPI (with hazards): 1.83333
+===========================
+
+Static analysis of pipeline completed.
+RISC Sim> 
+=== Critical Hazards (Stalls > 0) ===
+   Instruction: add x4, x1, x5 at PC=0x8
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 2 instructions
+   Register: x1   Stall cycles: 1
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: 1 cycle stall required
+
+   Instruction: add x4, x1, x5 at PC=0x8
+   Depends on: jal x1, function (PC=0x4)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 2
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: 2 cycle stall required
+
+   Instruction: jalr x0, 0(x1) at PC=0x14
+   Stall cycles: 2
+   Description: Control hazard from Function return: jalr
+   Solution: Use branch prediction or delayed branching (2 cycles)
+
+
+=== Resolved / Non-Critical Hazards ===
+   Instruction: jal x1, function at PC=0x4
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 0
+   Note: WAW hazard resolved by instruction separation or writeback timing
+   Description: WAW Hazard: Write-after-Write on x1
+   Solution: Reorder writes or stall to avoid overwriting
+
+   Instruction: jalr x0, 0(x1) at PC=0x14
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 5 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed
+
+   Instruction: jal x1, function at PC=0x4
+   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: Control hazard from Branch instruction: jal
+   Solution: Use branch prediction or delayed branching (0 cycles)
+
+   Instruction: jalr x0, 0(x1) at PC=0x14
+   Depends on: jal x1, function (PC=0x4)
+   Distance: 4 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed
+
+RISC Sim> Pipeline Stall Statistics:
+  Total Stalls: 5
+  RAW Hazards: 3
+  Control Hazards: 2
+  Total Instructions: 6
+  Total Cycles: 11
+  CPI: 1.83333
+RISC Sim> Pipeline cleared
+Pipeline state cleared.
+RISC Sim> No hazards detected in current instruction window
+RISC Sim> Exiting simulator...
+[0m

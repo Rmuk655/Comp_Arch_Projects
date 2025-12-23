@@ -1,0 +1,43 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Cache simulation enabled with configuration from Test/CacheSimulator\write_miss_wt_random\config
+RISC Sim> Loading program...
+Loaded program from Test/CacheSimulator\write_miss_wt_random\test.asm
+RISC Sim> Cache Simulation Status: Enabled
+Cache Size: 1024
+Block Size: 16
+Associativity: 2
+Replacement Policy: RANDOM
+Write Back Policy: WT
+RISC Sim> Executed: lui t0, 0x1000 (line: 5) ; PC =  hex: 0x000000
+RISC Sim> Executed: lw t1, 0(t0) (line: 8) ; PC =  hex: 0x000004
+Executed: addi t0, t0, 512 (line: 11) ; PC =  hex: 0x000008
+Executed: lw t2, 0(t0) (line: 12) ; PC =  hex: 0x00000c
+Executed: addi t0, t0, 512 (line: 15) ; PC =  hex: 0x000010
+Executed: lw t3, 0(t0) (line: 16) ; PC =  hex: 0x000014
+Executed: addi t0, t0, 512 (line: 19) ; PC =  hex: 0x000018
+Executed: sw t5, 0(t0) (line: 20) ; PC =  hex: 0x00001c
+Program completed (possibly reached end of program).
+Program: test
+D-cache statistics:   Accesses: 4   Hits: 0   Misses: 4   Hit Rate: 0%
+RISC Sim> Set[0]:
+  Index: 0x00 | Tag: 0x00008002 | Clean | Data: [00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+  Index: 0x00 | Tag: 0x00008001 | Clean | Data: [00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+RISC Sim> Cache state dumped to cache_dump
+RISC Sim> Cache simulation disabled.
+RISC Sim> Cache simulation is not enabled to get simulation statistics.
+RISC Sim> Exiting simulator...
+[0m
+=== Log File ===
+R: Address: 0x1000000, Set: 0x0, Tag: 0x8000, Clean, Miss, Replacing block in set using INVALID_BLOCK
+R: Address: 0x1000000, Set: 0x0, Tag: 0x8000, Clean, Miss, Read Allocated Block (WB or WT)
+R: Address: 0x1000200, Set: 0x0, Tag: 0x8001, Clean, Miss, Replacing block in set using INVALID_BLOCK
+R: Address: 0x1000200, Set: 0x0, Tag: 0x8001, Clean, Miss, Read Allocated Block (WB or WT)
+W: Address: 0x1000400, Set: 0x0, Tag: 0x8000, Clean, Evicting clean block
+R: Address: 0x1000400, Set: 0x0, Tag: 0x8002, Clean, Miss, Replacing block in set using RANDOM
+R: Address: 0x1000400, Set: 0x0, Tag: 0x8002, Clean, Miss, Read Allocated Block (WB or WT)
+W: Address: 0x1000600, Set: 0x0, Tag: 0x8003, Clean, Miss, WT Write-through (No Allocation)
+
+=== Cache Dump ===
+Set[0]:
+  Index: 0x00 | Tag: 0x00008002 | Clean | Data: [00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+  Index: 0x00 | Tag: 0x00008001 | Clean | Data: [00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]

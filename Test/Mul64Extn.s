@@ -1,0 +1,25 @@
+mul x1, x2, x3
+mulh x4, x5, x6
+mulhsu x7, x8, x9
+mulhu x10, x11, x12
+div x1, x2, x3
+divu x4, x5, x6
+rem x7, x8, x9
+remu x10, x11, x12
+addw x1, x2, x3
+subw x4, x5, x6
+sllw x7, x8, x9
+srlw x10, x11, x12
+sraw x13, x14, x15
+addiw x1, x2, 100
+slliw x3, x4, 5
+srliw x5, x6, 3
+sraiw x7, x8, 2
+ld x1, 0(x2)
+sd x3, 8(x4)
+lwu x5, 4(x6)
+mulw x1, x2, x3
+divw x4, x5, x6
+divuw x7, x8, x9
+remw x10, x11, x12
+remuw x13, x14, x15

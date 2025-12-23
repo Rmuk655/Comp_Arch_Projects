@@ -1,0 +1,37 @@
+Pipeline Configuration:
+  Type: 5-Stage
+  Forwarding: Enabled
+  Window Size: 6
+
+
+Detected Hazards:
+   Instruction: mul x1, x7, x8 at PC=0x8
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 2 instructions
+   Register: x1   Stall cycles: 0
+   Note: WAW hazard resolved by instruction separation or writeback timing
+   Description: WAW Hazard: Write-after-Write on x1
+   Solution: Reorder writes or stall to avoid overwriting
+
+   Instruction: or x9, x1, x10 at PC=0xc
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 3 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+   Instruction: or x9, x1, x10 at PC=0xc
+   Depends on: mul x1, x7, x8 (PC=0x8)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+
+Statistics:
+  Total Stalls: 0
+  Total Instructions: 4
+  Total Cycles: 4
+  CPI: 1

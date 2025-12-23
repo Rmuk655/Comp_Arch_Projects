@@ -1,0 +1,59 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test\NestedReturnAddress.s
+RISC Sim> Breakpoint set at line 1
+RISC Sim> Executed: lui x2, 0x10000 (line: 1) ; PC =  hex: 0x000000
+RISC Sim> x0: 0	x1: 0	x2: 10000000	x3: 0	x4: 0	x5: 0	x6: 0	x7: 0	x8: 0	x9: 0	x10: 0	x11: 0	x12: 0	x13: 0	x14: 0	x15: 0
+x16: 0	x17: 0	x18: 0	x19: 0	x20: 0	x21: 0	x22: 0	x23: 0	x24: 0	x25: 0	x26: 0	x27: 0	x28: 0	x29: 0	x30: 0	x31: 0
+RISC Sim> Printing currently loaded instructions .... 
+lui x2, 0x10000
+addi x10, x0, 42
+jal x1, funcA
+addi x11, x0, 42
+bne x10, x11, fail_nested
+addi x10, x0, 0
+ecall
+addi x10, x0, 4
+ecall
+addi x2, x2, -16
+sw x1, 12(x2)
+jal x1, funcB
+lw x1, 12(x2)
+addi x2, x2, 16
+jalr x0, 0(x1)
+addi x2, x2, -16
+sw x1, 12(x2)
+add x10, x10, x0
+lw x1, 12(x2)
+addi x2, x2, 16
+jalr x0, 0(x1)
+RISC Sim> Call stack (oldest to newest):
+#0   * main * at line : 1 Next Instruction 0x00000004 
+RISC Sim> Executed: addi x10, x0, 42 (line: 2) ; PC =  hex: 0x000004
+Executed: jal x1, funcA (line: 3) ; PC =  hex: 0x000008
+Executed: addi x2, x2, -16 (line: 16) ; PC =  hex: 0x000024
+Executed: sw x1, 12(x2) (line: 17) ; PC =  hex: 0x000028
+Executed: jal x1, funcB (line: 18) ; PC =  hex: 0x00002c
+Executed: addi x2, x2, -16 (line: 24) ; PC =  hex: 0x00003c
+Executed: sw x1, 12(x2) (line: 25) ; PC =  hex: 0x000040
+Executed: add x10, x10, x0 (line: 26) ; PC =  hex: 0x000044
+Executed: lw x1, 12(x2) (line: 27) ; PC =  hex: 0x000048
+Executed: addi x2, x2, 16 (line: 28) ; PC =  hex: 0x00004c
+Warning! Shadow call stack mismatch! Expected: 0x3c but asking to pop 0x0
+Call stack (oldest to newest):
+#0   * main * at line : 3 Next Instruction 0x00000024 
+#1   funcA at line : 18 Next Instruction 0x0000003c 
+Executed: jalr x0, 0(x1) (line: 29) ; PC =  hex: 0x000050
+Executed: lw x1, 12(x2) (line: 19) ; PC =  hex: 0x000030
+Executed: addi x2, x2, 16 (line: 20) ; PC =  hex: 0x000034
+Warning! Shadow call stack mismatch! Expected: 0x24 but asking to pop 0x0
+Call stack (oldest to newest):
+#0   * main * at line : 3 Next Instruction 0x00000024 
+Executed: jalr x0, 0(x1) (line: 21) ; PC =  hex: 0x000038
+Executed: addi x11, x0, 42 (line: 5) ; PC =  hex: 0x00000c
+Executed: bne x10, x11, fail_nested (line: 6) ; PC =  hex: 0x000010
+Executed: addi x10, x0, 0 (line: 8) ; PC =  hex: 0x000014
+Program exited with code: 0
+Executed: ecall (line: 9) ; PC =  hex: 0x000018
+RISC Sim> Exiting simulator...
+[0m

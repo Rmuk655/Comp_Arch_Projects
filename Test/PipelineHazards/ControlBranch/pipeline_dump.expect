@@ -1,0 +1,26 @@
+Pipeline Configuration:
+  Type: 5-Stage
+  Forwarding: Enabled
+  Window Size: 6
+
+
+Detected Hazards:
+   Instruction: beq x1, x4, target at PC=0x4
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+   Instruction: beq x1, x4, target at PC=0x4
+   Stall cycles: 2
+   Description: Control hazard from Branch instruction: beq
+   Solution: Use branch prediction or delayed branching (2 cycles)
+
+
+Statistics:
+  Total Stalls: 2
+  Total Instructions: 5
+  Total Cycles: 7
+  CPI: 1.4

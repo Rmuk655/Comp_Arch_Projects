@@ -1,0 +1,23 @@
+# https://github.com/github/gitignore/blob/main/C++.gitignore
+
+# Object files
+*.o
+*.obj
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Build directories
+build/
+emsdk/
+.vscode/
+# Compiled source #
+riscv_web.js
+*.wasm
+nul
+*.log
+cache_dump
+pipeline_dump
+test.out

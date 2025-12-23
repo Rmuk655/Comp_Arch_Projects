@@ -1,0 +1,34 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Cache simulation enabled with configuration from Test/CacheSimulator\read_hit\config
+RISC Sim> Loading program...
+Loaded program from Test/CacheSimulator\read_hit\test.asm
+RISC Sim> Cache Simulation Status: Enabled
+Cache Size: 16384
+Block Size: 16
+Associativity: 8
+Replacement Policy: LRU
+Write Back Policy: WT
+RISC Sim> Executed: lui   t0, 0x1 (line: 2) ; PC =  hex: 0x000000
+RISC Sim> Executed: addi  t1, zero, 123 (line: 3) ; PC =  hex: 0x000004
+Executed: sw    t1, 0(t0) (line: 4) ; PC =  hex: 0x000008
+Executed: lw    t2, 0(t0) (line: 5) ; PC =  hex: 0x00000c
+Executed: lw    t3, 0(t0) (line: 6) ; PC =  hex: 0x000010
+Program completed (possibly reached end of program).
+Program: test
+D-cache statistics:   Accesses: 3   Hits: 1   Misses: 2   Hit Rate: 33.3333%
+RISC Sim> Set[0]:
+  Index: 0x00 | Tag: 0x00000002 | Clean | Data: [7b 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+RISC Sim> Cache state dumped to cache_dump
+RISC Sim> Cache simulation disabled.
+RISC Sim> Cache simulation is not enabled to get simulation statistics.
+RISC Sim> Exiting simulator...
+[0m
+=== Log File ===
+W: Address: 0x1000, Set: 0x0, Tag: 0x2, Clean, Miss, WT Write-through (No Allocation)
+R: Address: 0x1000, Set: 0x0, Tag: 0x2, Clean, Miss, Replacing block in set using INVALID_BLOCK
+R: Address: 0x1000, Set: 0x0, Tag: 0x2, Clean, Miss, Read Allocated Block (WB or WT)
+R: Address: 0x1000, Set: 0x0, Tag: 0x2, Clean, Hit
+
+=== Cache Dump ===
+Set[0]:
+  Index: 0x00 | Tag: 0x00000002 | Clean | Data: [7b 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]

@@ -1,0 +1,10 @@
+jal x1, 8
+ecall 
+addi x2, x2, -4
+sw x1, 0(x2)
+jal x1, 16
+lw x1, 0(x2)
+addi x2, x2, 4
+jalr x0, 0(x1)
+addi x5, x0, 42
+jalr x0, 0(x1)

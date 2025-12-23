@@ -1,0 +1,64 @@
+Pipeline Configuration:
+  Type: 5-Stage
+  Forwarding: Enabled
+  Window Size: 6
+
+
+Detected Hazards:
+   Instruction: jal x1, function at PC=0x4
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 0
+   Note: WAW hazard resolved by instruction separation or writeback timing
+   Description: WAW Hazard: Write-after-Write on x1
+   Solution: Reorder writes or stall to avoid overwriting
+
+   Instruction: add x4, x1, x5 at PC=0x8
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 2 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+   Instruction: jalr x0, 0(x1) at PC=0x14
+   Depends on: add x1, x2, x3 (PC=0x0)
+   Distance: 5 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+   Instruction: jal x1, function at PC=0x4
+   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: Control hazard from Branch instruction: jal
+   Solution: Use branch prediction or delayed branching (0 cycles)
+
+   Instruction: add x4, x1, x5 at PC=0x8
+   Depends on: jal x1, function (PC=0x4)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+   Instruction: jalr x0, 0(x1) at PC=0x14
+   Depends on: jal x1, function (PC=0x4)
+   Distance: 4 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+   Instruction: jalr x0, 0(x1) at PC=0x14
+   Stall cycles: 2
+   Description: Control hazard from Function return: jalr
+   Solution: Use branch prediction or delayed branching (2 cycles)
+
+
+Statistics:
+  Total Stalls: 2
+  Total Instructions: 6
+  Total Cycles: 8
+  CPI: 1.33333

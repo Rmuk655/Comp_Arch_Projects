@@ -1,0 +1,753 @@
+  
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Consolas', 'Monaco', 'Lucida Console', monospace;
+      background: #1a1a1a;
+      color: #e0e0e0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #controls {
+      background: linear-gradient(135deg, #2d2d2d, #404040);
+      padding: 8px 12px;
+      border-bottom: 2px solid #4a9eff;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      height: 50px; /* Fixed height for controls */
+    }
+
+    button, .dropdown-btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #4a9eff, #357abd);
+      color: white;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.2s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .dropdown-btn {
+        padding: 6px 12px;
+    }
+
+    button:hover, .dropdown:hover .dropdown-btn {
+      background: linear-gradient(135deg, #3a8eef, #2a6aa0);
+      transform: translateY(-1px);
+    }
+
+    button:active, .dropdown-btn:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background: #555;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Dropdown Menu Styles */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #3c3c3c;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
+        z-index: 1001;
+        border-radius: 4px;
+        overflow: hidden;
+        border: 1px solid #555;
+    }
+
+    .dropdown-content a {
+        color: #e0e0e0;
+        padding: 10px 14px;
+        text-decoration: none;
+        display: block;
+        font-size: 12px;
+        transition: background-color 0.2s;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #4a9eff;
+        color: white;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    select {
+      padding: 6px 10px;
+      border: 1px solid #555;
+      border-radius: 4px;
+      background: #333;
+      color: #e0e0e0;
+      font-family: inherit;
+      font-size: 11px;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+      margin: 0 8px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #555;
+      transition: .4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #4a9eff;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    #main {
+      flex: 1;
+      display: flex;
+      height: calc(100vh - 50px);
+      min-height: 0;
+    }
+
+    /* Side Navigation Panel */
+    #sideNav {
+        width: 60px;
+        background: #252526;
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        border-right: 1px solid #333;
+    }
+    .side-nav-btn {
+        background: transparent;
+        color: #ccc;
+        border: none;
+        padding: 10px 5px;
+        width: 100%;
+        cursor: pointer;
+        border-radius: 3px;
+        font-size: 11px;
+        font-weight: bold;
+        text-align: center;
+        transition: all 0.2s ease;
+        border-left: 3px solid transparent;
+    }
+    .side-nav-btn:hover {
+        background: #3a3a3a;
+        color: white;
+    }
+    .side-nav-btn.active {
+        background: #094771;
+        color: white;
+        border-left: 3px solid #4a9eff;
+    }
+
+
+    .splitter-horizontal, .splitter-vertical {
+      background: #333;
+      cursor: col-resize;
+      position: relative;
+      user-select: none;
+    }
+
+    .splitter-horizontal {
+      width: 4px;
+      cursor: col-resize;
+    }
+
+    .splitter-vertical {
+      height: 4px;
+      cursor: row-resize;
+      
+    }
+
+    .splitter-horizontal:hover, .splitter-vertical:hover {
+      background: #4a9eff;
+    }
+
+    #leftPane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 300px;
+    }
+
+    #editorSection {
+      flex: 1;
+      display: flex;
+      min-height: 400px;
+      height: 100%;
+    }
+    #assemblyEditorWrapper, #machineEditorWrapper {
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0; /* IMPORTANT: Allow flex children to shrink correctly */
+    }
+
+    #assemblyEditor {
+      flex: 6;
+      display: flex;
+      flex-direction: column;
+      min-width: 150px;
+
+    }
+
+    #machineCodeView {
+      flex: 4;
+      display: flex;
+      flex-direction: column;
+      min-width: 150px;
+    }
+
+    .editor-header {
+      background: #333;
+      padding: 8px 12px;
+      font-weight: bold;
+      font-size: 12px;
+      border-bottom: 1px solid #444;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    flex-shrink: 0; /* Prevent header from shrinking */
+    }
+
+    .editor-container {
+      flex: 1;
+      position: relative;
+      background: #1e1e1e;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #codeTextarea, #machineCodeTextarea {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      color: #d4d4d4;
+      border: none;
+      padding: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 18px;
+      resize: none;
+      outline: none;
+      tab-size: 4;
+      box-sizing: border-box; /* Add consistent box-sizing */
+      position: relative;
+      z-index: 2; /* Above overlay and background */
+      overflow: auto;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: auto;
+    }
+
+
+    .line-numbers {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 40px;
+      background: #252525;
+      border-right: 1px solid #444;
+      padding: 10px 5px;
+      font-size: 13px;
+      line-height: 18px;
+      color: #666;
+      user-select: none;
+      overflow: hidden;
+      z-index: 3; /* Above everything */
+    }
+
+    .line-numbers .line-number {
+      text-align: right;
+      cursor: pointer;
+      padding-right: 5px;
+      position: relative;
+    }
+
+    .line-number.breakpoint {
+      background: #dc3545;
+      color: white;
+      border-radius: 2px;
+    }
+
+    .line-number.breakpoint:before {
+      content: "●";
+      position: absolute;
+      right: -8px;
+      color: #dc3545;
+    }
+
+    #codeTextarea {
+      padding-left: 50px;
+      
+    }
+
+    .overlay-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden; /* Do not scroll */
+    }
+    
+    #highlightOverlay {
+      position: absolute;
+      top: 0;
+      left:0;
+      /*left: 50px;*/
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      padding: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 18px;
+      overflow: hidden;
+      z-index: 1; /* Behind textarea & above background*/
+      box-sizing: border-box;
+    }
+
+    #machineEditorWrapper {
+      position: relative;
+      height: 100%;
+    }
+
+    .highlightLine {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 18px; /* Match line-height */
+      background-color: rgba(255, 255, 0, 0.4); /* highlight color */
+      background: rgba(255, 255, 0, 0.2);
+      border-left: 3px solid #ffff00;
+    }
+
+    .breakpointLine {
+      position: absolute;
+      left: 0;
+      right: 0;
+      background: rgba(220, 53, 69, 0.1);
+      height: 18px; /* Match line-height */
+      border-left: 3px solid #dc3545;
+    }
+
+    #consoleOutput {
+      height: 180px;
+      background: #0d1117;
+      color: #58a6ff;
+      padding: 10px;
+      overflow-y: scroll;
+      border-top: 1px solid #444;
+      font-size: 12px;
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+    }
+
+    #rightPane {
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      background: #252525;
+      min-width: 200px;
+    }
+
+    .panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid #444;
+      min-height: 150px;
+    }
+
+    .panel:last-child {
+      border-bottom: none;
+    }
+
+    .panel-header {
+      background: linear-gradient(135deg, #333, #404040);
+      padding: 8px 12px;
+      font-weight: bold;
+      font-size: 12px;
+      border-bottom: 1px solid #444;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: grab;
+    }
+
+    .panel-content {
+      flex: 1;
+      overflow-x: auto;
+      overflow-y: auto;
+      padding: 8px;
+      background: #1e1e1e;
+    }
+
+    #registerTable {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+
+    #registerTable th,
+    #registerTable td {
+      padding: 4px 8px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+    }
+
+    #registerTable th {
+      background: #2d2d2d;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+    }
+
+    .register-zero {
+      color: #666;
+    }
+
+    .register-nonzero {
+      color: #4fc3f7;
+    }
+
+    .highlight-change {
+      animation: flash 1s ease-in-out;
+    }
+
+    @keyframes flash {
+      0% { background-color: rgba(255, 165, 0, 0.7); }
+      100% { background-color: transparent; }
+    }
+
+    #stackView ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #stackView li {
+      padding: 4px 8px;
+      border-bottom: 1px solid #333;
+      font-size: 11px;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    #stackView li:before {
+      content: "└";
+      position: absolute;
+      left: 8px;
+      color: #666;
+    }
+
+    .memory-grid {
+      display: grid;
+      grid-template-columns: auto repeat(16, 1fr);
+      gap: 1px;
+      font-size: 10px;
+      background: #333;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .memory-address {
+      background: #2d2d2d;
+      padding: 4px 6px;
+      text-align: right;
+      color: #888;
+      font-weight: bold;
+      font-family: 'Courier New', monospace;
+    }
+
+    .memory-byte {
+      background: #1a1a1a;
+      padding: 4px 2px;
+      text-align: center;
+      min-width: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Courier New', monospace;
+    }
+
+    .memory-byte:hover {
+      background: #3a3a3a;
+      transform: scale(1.1);
+    }
+
+    .memory-byte.changed {
+      background: rgba(255, 165, 0, 0.3);
+      animation: pulse 1s ease-in-out;
+    }
+
+    .memory-byte.zero {
+      color: #666;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .cache-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+    }
+
+    .cache-table th,
+    .cache-table td {
+      padding: 4px 6px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+      font-family: 'Courier New', monospace;
+    }
+
+    .cache-table th {
+      background: #2d2d2d;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+    }
+
+    .cache-hit {
+      color: #4caf50;
+    }
+
+    .cache-miss {
+      color: #f44336;
+    }
+
+    .cache-dirty {
+      background: rgba(255, 165, 0, 0.2);
+    }
+
+    .panel-controls {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .panel-controls button {
+      padding: 2px 8px;
+      font-size: 10px;
+    }
+
+    .memory-ascii {
+      grid-column: span 16;
+      background: #0d1117;
+      padding: 4px 6px;
+      font-size: 9px;
+      color: #aaa;
+      font-family: 'Courier New', monospace;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .stat-card {
+      background: #2d2d2d;
+      padding: 8px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: bold;
+      color: #4a9eff;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: #aaa;
+      margin-top: 2px;
+    }
+
+    .resizer {
+      background: transparent;
+      position: absolute;
+    }
+
+    .resizer.horizontal {
+      height: 4px;
+      cursor: row-resize;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+    }
+
+    .resizer.vertical {
+      width: 4px;
+      cursor: col-resize;
+      top: 0;
+      bottom: 0;
+      right: -2px;
+    }
+
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #666;
+      font-style: italic;
+    }
+
+    .tooltip {
+      position: relative;
+    }
+
+    .tooltip:hover:after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      white-space: nowrap;
+      z-index: 1000;
+    }
+
+    .side-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.nav-icon {
+    font-size: 16px
+}
+
+#rightPane {
+  display: flex;
+  flex-direction: column;
+}
+
+#registersView {
+  flex: 1; 
+  min-height: 0;
+  overflow: auto;
+}
+
+
+/* Make bottom pane split horizontally */
+#bottomPane {
+  display: flex;
+  height: 180px; /* same as original consoleOutput height */
+  background: #0d1117;
+  border-top: 1px solid #444;
+  overflow: hidden;
+}
+
+#consoleOutput {
+  flex: 2; /* 75% width */
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 12px;
+  white-space: pre-wrap;
+  font-family: 'Courier New', monospace;
+  color: #58a6ff;
+  border-right: 1px solid #333;
+}
+
+#callstackView {
+  flex: 2; /* 25% width */
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 12px;
+  font-family: 'Courier New', monospace;
+  color: #ccc;
+  background: #1e1e1e;
+}
+
+/* Optional: distinguish callstack style */
+#callstackView ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#callstackView li {
+  padding: 4px 6px;
+  border-bottom: 1px solid #333;
+  font-size: 11px;
+}

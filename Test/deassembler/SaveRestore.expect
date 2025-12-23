@@ -1,0 +1,12 @@
+addi x10, x0, 42
+jal x1, 20
+addi x11, x0, 42
+bge x10, x11, 4
+addi x10, x0, 0
+ecall 
+addi x2, x2, -16
+sw x1, 12(x2)
+addi x1, x0, 123
+lw x1, 12(x2)
+addi x2, x2, 16
+jalr x0, 0(x1)

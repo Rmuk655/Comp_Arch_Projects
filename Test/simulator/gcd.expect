@@ -1,0 +1,60 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test\gcd.s
+RISC Sim> No valid Instruction at line number: 1
+RISC Sim> Executed: addi x10, x0, 98 (line: 4) ; PC =  hex: 0x000000
+RISC Sim> x0: 0	x1: 0	x2: 0	x3: 0	x4: 0	x5: 0	x6: 0	x7: 0	x8: 0	x9: 0	x10: 62	x11: 0	x12: 0	x13: 0	x14: 0	x15: 0
+x16: 0	x17: 0	x18: 0	x19: 0	x20: 0	x21: 0	x22: 0	x23: 0	x24: 0	x25: 0	x26: 0	x27: 0	x28: 0	x29: 0	x30: 0	x31: 0
+RISC Sim> Printing currently loaded instructions .... 
+addi x10, x0, 98
+addi x11, x0, 56
+sub x5, x10, x11
+beq x5, x0, done
+srai x6, x5, 31
+beq x6, x0, a_ge_b
+sub x11, x11, x10
+beq x0, x0, loop_start
+sub x10, x10, x11
+beq x0, x0, loop_start
+addi x17, x0, 14
+bne x17, x10, fail
+addi x10, x0, 0
+ecall
+addi x10, x0, 1
+ecall
+RISC Sim> Call stack (oldest to newest):
+#0   _start at line : 4 Next Instruction 0x00000004 
+RISC Sim> Executed: addi x11, x0, 56 (line: 5) ; PC =  hex: 0x000004
+Executed: sub x5, x10, x11 (line: 7) ; PC =  hex: 0x000008
+Executed: beq x5, x0, done (line: 8) ; PC =  hex: 0x00000c
+Executed: srai x6, x5, 31 (line: 10) ; PC =  hex: 0x000010
+Executed: beq x6, x0, a_ge_b (line: 12) ; PC =  hex: 0x000014
+Executed: sub x10, x10, x11 (line: 19) ; PC =  hex: 0x000020
+Executed: beq x0, x0, loop_start (line: 20) ; PC =  hex: 0x000024
+Executed: sub x5, x10, x11 (line: 7) ; PC =  hex: 0x000008
+Executed: beq x5, x0, done (line: 8) ; PC =  hex: 0x00000c
+Executed: srai x6, x5, 31 (line: 10) ; PC =  hex: 0x000010
+Executed: beq x6, x0, a_ge_b (line: 12) ; PC =  hex: 0x000014
+Executed: sub x11, x11, x10 (line: 15) ; PC =  hex: 0x000018
+Executed: beq x0, x0, loop_start (line: 16) ; PC =  hex: 0x00001c
+Executed: sub x5, x10, x11 (line: 7) ; PC =  hex: 0x000008
+Executed: beq x5, x0, done (line: 8) ; PC =  hex: 0x00000c
+Executed: srai x6, x5, 31 (line: 10) ; PC =  hex: 0x000010
+Executed: beq x6, x0, a_ge_b (line: 12) ; PC =  hex: 0x000014
+Executed: sub x10, x10, x11 (line: 19) ; PC =  hex: 0x000020
+Executed: beq x0, x0, loop_start (line: 20) ; PC =  hex: 0x000024
+Executed: sub x5, x10, x11 (line: 7) ; PC =  hex: 0x000008
+Executed: beq x5, x0, done (line: 8) ; PC =  hex: 0x00000c
+Executed: srai x6, x5, 31 (line: 10) ; PC =  hex: 0x000010
+Executed: beq x6, x0, a_ge_b (line: 12) ; PC =  hex: 0x000014
+Executed: sub x10, x10, x11 (line: 19) ; PC =  hex: 0x000020
+Executed: beq x0, x0, loop_start (line: 20) ; PC =  hex: 0x000024
+Executed: sub x5, x10, x11 (line: 7) ; PC =  hex: 0x000008
+Executed: beq x5, x0, done (line: 8) ; PC =  hex: 0x00000c
+Executed: addi x17, x0, 14 (line: 25) ; PC =  hex: 0x000028
+Executed: bne x17, x10, fail (line: 26) ; PC =  hex: 0x00002c
+Executed: addi x10, x0, 0 (line: 28) ; PC =  hex: 0x000030
+Program exited with code: 0
+Executed: ecall (line: 29) ; PC =  hex: 0x000034
+RISC Sim> Exiting simulator...
+[0m

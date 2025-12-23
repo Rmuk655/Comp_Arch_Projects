@@ -1,0 +1,39 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test\SaveRestore.s
+RISC Sim> No valid Instruction at line number: 1
+RISC Sim> Executed: addi x10, x0, 42 (line: 4) ; PC =  hex: 0x000000
+RISC Sim> x0: 0	x1: 0	x2: 0	x3: 0	x4: 0	x5: 0	x6: 0	x7: 0	x8: 0	x9: 0	x10: 2a	x11: 0	x12: 0	x13: 0	x14: 0	x15: 0
+x16: 0	x17: 0	x18: 0	x19: 0	x20: 0	x21: 0	x22: 0	x23: 0	x24: 0	x25: 0	x26: 0	x27: 0	x28: 0	x29: 0	x30: 0	x31: 0
+RISC Sim> Printing currently loaded instructions .... 
+addi x10, x0, 42
+jal  x1, func
+addi x11,x0,42
+bge x10,x11,loop
+addi x10, x0, 0
+ecall
+addi x2, x2, -16
+sw   x1, 12(x2)
+addi x1, x0, 123
+lw   x1, 12(x2)
+addi x2, x2, 16
+jalr x0, 0(x1)
+RISC Sim> Call stack (oldest to newest):
+#0   start at line : 4 Next Instruction 0x00000004 
+RISC Sim> Executed: jal  x1, func (line: 5) ; PC =  hex: 0x000004
+Executed: addi x2, x2, -16 (line: 15) ; PC =  hex: 0x000018
+Executed: sw   x1, 12(x2) (line: 16) ; PC =  hex: 0x00001c
+Executed: addi x1, x0, 123 (line: 18) ; PC =  hex: 0x000020
+Executed: lw   x1, 12(x2) (line: 19) ; PC =  hex: 0x000024
+Executed: addi x2, x2, 16 (line: 21) ; PC =  hex: 0x000028
+Warning! Shadow call stack mismatch! Expected: 0x18 but asking to pop 0x0
+Call stack (oldest to newest):
+#0   start at line : 5 Next Instruction 0x00000018 
+Executed: jalr x0, 0(x1) (line: 22) ; PC =  hex: 0x00002c
+Executed: addi x11,x0,42 (line: 6) ; PC =  hex: 0x000008
+Executed: bge x10,x11,loop (line: 7) ; PC =  hex: 0x00000c
+Executed: addi x10, x0, 0 (line: 11) ; PC =  hex: 0x000010
+Program exited with code: 0
+Executed: ecall (line: 12) ; PC =  hex: 0x000014
+RISC Sim> Exiting simulator...
+[0m

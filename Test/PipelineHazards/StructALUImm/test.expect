@@ -1,0 +1,60 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test/PipelineHazards\StructALUImm\test.asm
+RISC Sim> Pipeline hazard detection enabled
+Pipeline simulation enabled with hazard detection.
+RISC Sim> Pipeline Status:
+  Enabled: Yes
+  Type: 5-Stage
+  Forwarding: Enabled
+  Window Size: 6
+  Current Cycle: 0
+  Cache Simulation: Disabled
+RISC Sim> 
+=== PERFORMANCE ANALYSIS ===
+Program instructions: 4
+Total hazards detected: 0
+Total stall cycles: 0
+Estimated CPI (without hazards): 1.0
+Estimated CPI (with hazards): 1
+===========================
+
+Static analysis of pipeline completed.
+RISC Sim> No hazards detected in current instruction window
+RISC Sim> Pipeline Stall Statistics:
+  Total Stalls: 0
+  Total Instructions: 4
+  Total Cycles: 4
+  CPI: 1
+RISC Sim> Pipeline state dumped to Test/PipelineHazards\StructALUImm./pipeline_dump
+Pipeline analysis dumped to Test/PipelineHazards\StructALUImm./pipeline_dump
+RISC Sim> Data forwarding disabled
+Data forwarding disabled.
+RISC Sim> Pipeline Status:
+  Enabled: Yes
+  Type: 5-Stage
+  Forwarding: Disabled
+  Window Size: 6
+  Current Cycle: 0
+  Cache Simulation: Disabled
+RISC Sim> 
+=== PERFORMANCE ANALYSIS ===
+Program instructions: 4
+Total hazards detected: 0
+Total stall cycles: 0
+Estimated CPI (without hazards): 1.0
+Estimated CPI (with hazards): 1
+===========================
+
+Static analysis of pipeline completed.
+RISC Sim> No hazards detected in current instruction window
+RISC Sim> Pipeline Stall Statistics:
+  Total Stalls: 0
+  Total Instructions: 4
+  Total Cycles: 4
+  CPI: 1
+RISC Sim> Pipeline cleared
+Pipeline state cleared.
+RISC Sim> No hazards detected in current instruction window
+RISC Sim> Exiting simulator...
+[0m

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced RISC-V Simulator</title>
+  <link rel="stylesheet" href="stylesNew.css" />
+  <style>
+    /* You can include component-specific overrides here if needed */
+  </style>
+</head>
+
+<body>
+  <!-- Main script for simulator -->
+  <script type="module" src="scriptNew.js"></script>
+
+  <!-- Top Control Bar -->
+  <div id="controls">
+    <!-- File Menu -->
+    <div class="dropdown">
+      <button class="dropdown-btn">File</button>
+      <div class="dropdown-content">
+        <a href="#" id="loadProgramBtn">📁 Load Program...</a>
+        <a href="#" id="loadSample">📋 Load Sample</a>
+        <a href="#" id="saveAsBtn">💾 Save As...</a>
+      </div>
+    </div>
+
+    <!-- Run Menu -->
+    <div class="dropdown">
+      <button class="dropdown-btn">Run</button>
+      <div class="dropdown-content">
+        <a href="#" id="runMenuBtn">▶ Run (F5)</a>
+        <a href="#" id="stepMenuBtn">➡️ Step (F10)</a>
+        <a href="#" id="toggleBreakpoint">🔴 Toggle Breakpoint (F9)</a>
+        <a href="#" id="disableAllBreakpoints">🚫 Disable All Breakpoints</a>
+      </div>
+    </div>
+
+    <!-- Hidden buttons for keyboard events -->
+    <div style="display: none;">
+      <button id="runBtn" disabled></button>
+      <button id="stepBtn" disabled></button>
+    </div>
+
+    <!-- Utility Buttons -->
+    <button id="resetBtn" disabled class="tooltip" data-tooltip="Reset simulation">🔄 Reset</button>
+    <button onclick="clearConsole()" class="tooltip" data-tooltip="Clear console output">🧹 Clear</button>
+
+    <!-- ISA Selector -->
+    <div class="button-group">
+      <label for="instructionSet">ISA:</label>
+      <select id="instructionSet">
+        <option value="rv32i">RV32I Base</option>
+        <option value="rv32imc">RV32IM</option>
+        <option value="rv64i">RV64I</option>
+        <option value="rv64imc">RV64I</option>
+      </select>
+    </div>
+
+    <!-- Register Format Toggle -->
+    <div class="button-group">
+      <span>Hex</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="registerFormat">
+        <span class="slider"></span>
+      </label>
+      <span>Dec</span>
+    </div>
+
+    <!-- Hidden breakpoint toggles -->
+    <div class="button-group" style="display: none;">
+      <button id="toggleBreakpoints" class="tooltip" data-tooltip="Toggle all breakpoints">🔴 BP</button>
+      <button id="loadSample" class="tooltip" data-tooltip="Load sample code">📋 Sample</button>
+    </div>
+  </div>
+
+  <!-- Main Layout Container -->
+  <div id="main">
+    <!-- Side Navigation -->
+    <div id="sideNav">
+      <button class="side-nav-btn active" data-view="register" title="Code & Registers">
+        <span class="nav-icon">📝</span> Code
+      </button>
+      <button class="side-nav-btn" data-view="cache" title="Cache">
+        <span class="nav-icon">⚡</span> Cache
+      </button>
+      <button class="side-nav-btn" data-view="memory" title="Memory">
+        <span class="nav-icon">🧠</span> Memory
+      </button>
+    </div>
+
+    <!-- Left Pane: Assembly & Machine Code Editors -->
+    <div id="leftPane">
+      <div id="editorSection">
+
+        <!-- Assembly Editor -->
+        <div id="assemblyEditor">
+          <div class="editor-header">
+            <span>📝 Assembly Code</span>
+            <div class="panel-controls">
+              <button onclick="formatCode()" class="tooltip" data-tooltip="Auto-format code">✨</button>
+            </div>
+          </div>
+
+          <div class="editor-container">
+            <div class="line-numbers" id="lineNumbers"></div>
+            <div id="assemblyEditorWrapper">
+              <!-- Highlight Overlay Container (decoupled from scroll) -->
+              <div class="overlay-container">
+                <div id="highlightOverlay"></div>
+              </div>
+              <textarea id="codeTextarea" placeholder="// Load sample code or import your RISC-V assembly file
+// Click line numbers to set breakpoints
+// Use Ctrl+S to save, F9 to run, F10 to step"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="splitter-horizontal" id="editorSplitter"></div>
+
+        <!-- Machine Code View -->
+        <div id="machineCodeView">
+          <div class="editor-header">
+            <span>⚙️ Machine Code</span>
+            <div class="panel-controls">
+              <button onclick="copyMachineCode()" class="tooltip" data-tooltip="Copy to clipboard">📋</button>
+              <button onclick="exportHex()" class="tooltip" data-tooltip="Export as hex file">📤</button>
+            </div>
+          </div>
+
+          <div class="editor-container">
+            <div id="machineEditorWrapper">
+              <div id="machineHighlightOverlay" class="highlight-overlay"></div>
+              <textarea id="machineCodeTextarea" readonly placeholder="Machine code will appear here after loading assembly..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="splitter-vertical" id="consoleSplitter"></div>
+
+      <!-- Bottom Pane: Console + Stack -->
+      <div id="bottomPane">
+        <div id="consoleOutput"></div>
+
+        <!-- Call Stack Panel -->
+        <div class="panel" id="stackView">
+          <div class="panel-header">
+            <span>📚 Call Stack</span>
+            <div class="panel-controls">
+              <button onclick="exportStack()" class="tooltip" data-tooltip="Export stack trace">📤</button>
+            </div>
+          </div>
+          <div class="panel-content"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="splitter-horizontal" id="mainSplitter"></div>
+
+    <!-- Right Pane: Registers, Memory, Cache -->
+    <div id="rightPane">
+      <!-- Register View -->
+      <div class="panel" id="registerView">
+        <div class="panel-header">
+          <span>📊 Registers</span>
+          <div class="panel-controls">
+            <button onclick="exportRegisters()" class="tooltip" data-tooltip="Export register state">📤</button>
+          </div>
+        </div>
+        <div class="panel-content">
+          <table id="registerTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Alias</th>
+                <th>Value</th>
+                <th>Name</th>
+                <th>Alias</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="resizer horizontal"></div>
+      </div>
+
+      <!-- Memory View (hidden initially) -->
+      <div class="panel" id="memoryView" style="display:none;">
+        <div class="panel-header">
+          <span>🧠 Memory</span>
+          <div class="panel-controls">
+            <button onclick="refreshMemory()" class="tooltip" data-tooltip="Refresh memory view">🔄</button>
+            <button onclick="jumpToAddress()" class="tooltip" data-tooltip="Jump to address">🎯</button>
+            <input type="text" id="memorySearch" placeholder="Search..." style="width:80px; font-size:10px;">
+          </div>
+        </div>
+        <div class="panel-content">
+          <div id="memoryGrid" class="memory-grid"></div>
+        </div>
+        <div class="resizer horizontal"></div>
+      </div>
+
+      <!-- Cache View (hidden initially) -->
+      <div class="panel" id="cacheView" style="display:none;">
+        <div class="panel-header">
+          <span>⚡ Cache</span>
+          <div class="panel-controls">
+            <button onclick="clearCacheStats()" class="tooltip" data-tooltip="Clear statistics">📊</button>
+          </div>
+        </div>
+        <div class="panel-content">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="cacheHits">0</div>
+              <div class="stat-label">Hits</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="cacheMisses">0</div>
+              <div class="stat-label">Misses</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="hitRate">0%</div>
+              <div class="stat-label">Hit Rate</div>
+            </div>
+          </div>
+          <table class="cache-table" id="cacheTable">
+            <thead>
+              <tr>
+                <th>Set</th>
+                <th>Tag</th>
+                <th>Valid</th>
+                <th>Dirty</th>
+                <th>Data</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="resizer horizontal"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test/PipelineHazards\DataLoadUse\test.asm
+RISC Sim> Pipeline hazard detection enabled
+Pipeline simulation enabled with hazard detection.
+RISC Sim> Pipeline Status:
+  Enabled: Yes
+  Type: 5-Stage
+  Forwarding: Enabled
+  Window Size: 6
+  Current Cycle: 0
+  Cache Simulation: Disabled
+RISC Sim> 
+=== PERFORMANCE ANALYSIS ===
+Program instructions: 4
+Total hazards detected: 2
+Total stall cycles: 1
+Estimated CPI (without hazards): 1.0
+Estimated CPI (with hazards): 1.25
+===========================
+
+Static analysis of pipeline completed.
+RISC Sim> 
+=== Critical Hazards (Stalls > 0) ===
+   Instruction: add x3, x1, x4 at PC=0x4
+   Depends on: lw x1, 0(x2) (PC=0x0)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 1
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: 1 cycle stall or forwarding
+
+
+=== Resolved / Non-Critical Hazards ===
+   Instruction: mul x8, x1, x9 at PC=0xc
+   Depends on: lw x1, 0(x2) (PC=0x0)
+   Distance: 3 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed (forwarding available)
+
+RISC Sim> Pipeline Stall Statistics:
+  Total Stalls: 1
+  RAW Hazards: 1
+  Total Instructions: 4
+  Total Cycles: 5
+  CPI: 1.25
+RISC Sim> Pipeline state dumped to Test/PipelineHazards\DataLoadUse./pipeline_dump
+Pipeline analysis dumped to Test/PipelineHazards\DataLoadUse./pipeline_dump
+RISC Sim> Data forwarding disabled
+Data forwarding disabled.
+RISC Sim> Pipeline Status:
+  Enabled: Yes
+  Type: 5-Stage
+  Forwarding: Disabled
+  Window Size: 6
+  Current Cycle: 0
+  Cache Simulation: Disabled
+RISC Sim> 
+=== PERFORMANCE ANALYSIS ===
+Program instructions: 4
+Total hazards detected: 2
+Total stall cycles: 2
+Estimated CPI (without hazards): 1.0
+Estimated CPI (with hazards): 1.5
+===========================
+
+Static analysis of pipeline completed.
+RISC Sim> 
+=== Critical Hazards (Stalls > 0) ===
+   Instruction: add x3, x1, x4 at PC=0x4
+   Depends on: lw x1, 0(x2) (PC=0x0)
+   Distance: 1 instruction
+   Register: x1   Stall cycles: 2
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: 2 cycle stall required
+
+
+=== Resolved / Non-Critical Hazards ===
+   Instruction: mul x8, x1, x9 at PC=0xc
+   Depends on: lw x1, 0(x2) (PC=0x0)
+   Distance: 3 instructions
+   Register: x1   Stall cycles: 0
+   Note: Hazard resolved by separation or forwarding
+   Description: RAW Hazard: Read-after-Write on x1
+   Solution: No stall needed
+
+RISC Sim> Pipeline Stall Statistics:
+  Total Stalls: 2
+  RAW Hazards: 2
+  Total Instructions: 4
+  Total Cycles: 6
+  CPI: 1.5
+RISC Sim> Pipeline cleared
+Pipeline state cleared.
+RISC Sim> No hazards detected in current instruction window
+RISC Sim> Exiting simulator...
+[0m

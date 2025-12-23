@@ -1,0 +1,112 @@
+[1;31mRISSIM> === Interactive RISC-V Simulator ===
+RISC Sim> Loading program...
+Loaded program from Test/PipelineHazards\StructComplex\test.asm
+RISC Sim> Pipeline hazard detection enabled
+Pipeline simulation enabled with hazard detection.
+RISC Sim> Pipeline Status:
+  Enabled: Yes
+  Type: 5-Stage
+  Forwarding: Enabled
+  Window Size: 6
+  Current Cycle: 0
+  Cache Simulation: Disabled
+RISC Sim> 
+=== PERFORMANCE ANALYSIS ===
+Program instructions: 5
+Total hazards detected: 3
+Total stall cycles: 6
+Estimated CPI (without hazards): 1.0
+Estimated CPI (with hazards): 2.2
+===========================
+
+Static analysis of pipeline completed.
+RISC Sim> 
+=== Critical Hazards (Stalls > 0) ===
+   Instruction: mulw x4, x5, x6 at PC=0x4
+   Depends on: mul x1, x2, x3 (PC=0x0)
+   Distance: 1 instruction
+   Stall cycles: 2
+   Description: Structural hazard: both instructions use Mul/Div Unit
+   Solution: Stall pipeline until Mul/Div Unit is available
+
+   Instruction: div x7, x8, x9 at PC=0x8
+   Depends on: mulw x4, x5, x6 (PC=0x4)
+   Distance: 1 instruction
+   Stall cycles: 2
+   Description: Structural hazard: both instructions use Mul/Div Unit
+   Solution: Stall pipeline until Mul/Div Unit is available
+
+   Instruction: divuw x10, x11, x12 at PC=0xc
+   Depends on: div x7, x8, x9 (PC=0x8)
+   Distance: 1 instruction
+   Stall cycles: 2
+   Description: Structural hazard: both instructions use Mul/Div Unit
+   Solution: Stall pipeline until Mul/Div Unit is available
+
+
+=== Resolved / Non-Critical Hazards ===
+None
+RISC Sim> Pipeline Stall Statistics:
+  Total Stalls: 6
+  Structural Hazards: 6
+  Total Instructions: 5
+  Total Cycles: 11
+  CPI: 2.2
+RISC Sim> Pipeline state dumped to Test/PipelineHazards\StructComplex./pipeline_dump
+Pipeline analysis dumped to Test/PipelineHazards\StructComplex./pipeline_dump
+RISC Sim> Data forwarding disabled
+Data forwarding disabled.
+RISC Sim> Pipeline Status:
+  Enabled: Yes
+  Type: 5-Stage
+  Forwarding: Disabled
+  Window Size: 6
+  Current Cycle: 0
+  Cache Simulation: Disabled
+RISC Sim> 
+=== PERFORMANCE ANALYSIS ===
+Program instructions: 5
+Total hazards detected: 3
+Total stall cycles: 6
+Estimated CPI (without hazards): 1.0
+Estimated CPI (with hazards): 2.2
+===========================
+
+Static analysis of pipeline completed.
+RISC Sim> 
+=== Critical Hazards (Stalls > 0) ===
+   Instruction: mulw x4, x5, x6 at PC=0x4
+   Depends on: mul x1, x2, x3 (PC=0x0)
+   Distance: 1 instruction
+   Stall cycles: 2
+   Description: Structural hazard: both instructions use Mul/Div Unit
+   Solution: Stall pipeline until Mul/Div Unit is available
+
+   Instruction: div x7, x8, x9 at PC=0x8
+   Depends on: mulw x4, x5, x6 (PC=0x4)
+   Distance: 1 instruction
+   Stall cycles: 2
+   Description: Structural hazard: both instructions use Mul/Div Unit
+   Solution: Stall pipeline until Mul/Div Unit is available
+
+   Instruction: divuw x10, x11, x12 at PC=0xc
+   Depends on: div x7, x8, x9 (PC=0x8)
+   Distance: 1 instruction
+   Stall cycles: 2
+   Description: Structural hazard: both instructions use Mul/Div Unit
+   Solution: Stall pipeline until Mul/Div Unit is available
+
+
+=== Resolved / Non-Critical Hazards ===
+None
+RISC Sim> Pipeline Stall Statistics:
+  Total Stalls: 6
+  Structural Hazards: 6
+  Total Instructions: 5
+  Total Cycles: 11
+  CPI: 2.2
+RISC Sim> Pipeline cleared
+Pipeline state cleared.
+RISC Sim> No hazards detected in current instruction window
+RISC Sim> Exiting simulator...
+[0m
