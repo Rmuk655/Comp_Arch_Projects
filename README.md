@@ -359,5 +359,4 @@ Make UI panels resizable for better user experience.
 Enable loading of machine code with configuration for base 32-bit, 32-bit extension, or 64-bit instruction sets.
 
 Add a toggle to display register values in either hexadecimal or decimal format.
-#   C o m p _ A r c h _ P r o j e c t s  
- 
+#
